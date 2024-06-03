@@ -1,0 +1,292 @@
+<!-- Import PrimeNG Steps and Messages components in your component template -->
+<p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+<!-- Step 1: Driver Form -->
+<div *ngIf="currentStep === 0">
+  <!-- Form layout using PrimeNG components -->
+  <form [formGroup]="driverForm" (ngSubmit)="onSubmit()">
+    <p-card>
+      <p-fieldset legend="Driver Details">
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="FirstName">
+              First Name
+            </label>
+            <input type="text" id="FirstName" formControlName="FirstName" pInputText
+              (input)="convertToUppercase('FirstName')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="MiddleName">
+              Middle Name
+            </label>
+            <input type="text" id="MiddleName" formControlName="MiddleName" pInputText
+              (input)="convertToUppercase('MiddleName')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="LastName">
+              Last Name
+            </label>
+            <input type="text" id="LastName" formControlName="LastName" pInputText
+              (input)="convertToUppercase('LastName')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="SAPId"> SAP Id </label>
+            <input type="text" id="SAPId" formControlName="SAPId" pInputText (input)="convertToUppercase('SAPId')" />
+          </div>
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="BranchCode">
+              Branch Code
+            </label>
+            <input type="text" id="BranchCode" formControlName="BranchCode" pInputText
+              (input)="convertToUppercase('BranchCode')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="DriverCode">
+              Driver Code
+            </label>
+            <input type="text" id="DriverCode" formControlName="DriverCode" pInputText
+              (input)="convertToUppercase('DriverCode')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="Location">
+              Location
+            </label>
+            <input type="text" id="Location" formControlName="Location" pInputText
+              (input)="convertToUppercase('Location')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="MobileNumber">
+              Mobile Number
+            </label>
+            <input type="text" id="MobileNumber" formControlName="MobileNumber" pInputText />
+          </div>
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="PermanentAddress">Permanent Address</label>
+            <textarea id="PermanentAddress" formControlName="PermanentAddress" pInputTextarea rows="4" cols="20"
+              [autoResize]="true" (input)="convertToUppercase('PermanentAddress')"></textarea>
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="CurrentAddress">Current Address</label>
+            <textarea id="CurrentAddress" formControlName="CurrentAddress" pInputTextarea rows="4" cols="20"
+              [autoResize]="true" (input)="convertToUppercase('CurrentAddress')"></textarea>
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="LicenseNumber">
+              License Number
+            </label>
+            <input type="text" id="LicenseNumber" formControlName="LicenseNumber" pInputText
+              (input)="convertToUppercase('LicenseNumber')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="LicenseValidity">License Validity</label>
+            <p-calendar id="LicenseValidity" formControlName="LicenseValidity" [showIcon]="true"
+              dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="IssuedByRTO">
+              Issued By RTO
+            </label>
+            <input type="text" id="IssuedByRTO" formControlName="IssuedByRTO" pInputText
+              (input)="convertToUppercase('IssuedByRTO')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="FirstLicenseIssueDate">First License Issue Date</label>
+            <p-calendar id="FirstLicenseIssueDate" formControlName="FirstLicenseIssueDate" [showIcon]="true"
+              dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="CloseTrip">
+              Close Trip
+            </label>
+            <input type="text" id="CloseTrip" formControlName="CloseTrip" pInputText />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="DriverFatherName">
+              Driver Father Name
+            </label>
+            <input type="text" id="DriverFatherName" formControlName="DriverFatherName" pInputText
+              (input)="convertToUppercase('DriverFatherName')" />
+          </div>
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="VehicleNumber">
+              Vehicle Number
+            </label>
+            <input type="text" id="VehicleNumber" formControlName="VehicleNumber" pInputText
+              (input)="convertToUppercase('VehicleNumber')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="PermanentCity">
+              Permanent City
+            </label>
+            <input type="text" id="PermanentCity" formControlName="PermanentCity" pInputText
+              (input)="convertToUppercase('PermanentCity')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="PermanentPincode">
+              Permanent Pincode
+            </label>
+            <input type="text" id="PermanentPincode" formControlName="PermanentPincode" pInputText
+              (input)="convertToUppercase('PermanentPincode')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="CurrentCity">
+              Current City
+            </label>
+            <input type="text" id="CurrentCity" formControlName="CurrentCity" pInputText
+              (input)="convertToUppercase('CurrentCity')" />
+          </div>
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="CurrentPincode">Current Pincode</label>
+            <input id="CurrentPincode" formControlName="CurrentPincode" pInputText />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="GuarantorName">
+              Guarantor / reference Name
+            </label>
+            <input type="text" id="GuarantorName" formControlName="GuarantorName" pInputText
+              (input)="convertToUppercase('GuarantorName')" />
+          </div>
+
+          <!-- <div class="flex-auto">
+            <label class="block font-bold mb-2" for="Status">Status</label>
+            <p-dropdown id="Status" formControlName="Status" [options]="statusOptions"></p-dropdown>
+          </div> -->
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="DriverCategory">
+              Driver Category
+            </label>
+            <input type="text" id="DriverCategory" formControlName="DriverCategory" pInputText
+              (input)="convertToUppercase('DriverCategory')" />
+          </div>
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="DOB">Date Of Birth</label>
+            <p-calendar id="DOB" formControlName="DOB" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="DOJ">Date Of Joining</label>
+            <p-calendar id="DOJ" formControlName="DOJ" [showIcon]="true" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="LicenseVerifiedDate">License Verified Date</label>
+            <p-calendar id="LicenseVerifiedDate" formControlName="LicenseVerifiedDate" [showIcon]="true"
+              dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="Ethinicity">
+              Ethinicity
+            </label>
+            <input type="text" id="Ethinicity" formControlName="Ethinicity" pInputText
+              (input)="convertToUppercase('Ethinicity')" />
+          </div>
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="LicenseVerified">License Verified</label>
+            <input type="checkbox" name="verify" value="true" id="LicenseVerified" formControlName="LicenseVerified"
+              (change)="updateCheckboxValue($event)" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="AddressVerified">Address Verified</label>
+            <input type="checkbox" name="verify" value="true" id="AddressVerified" formControlName="AddressVerified"
+              (change)="updateCheckboxValue($event)" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="CurrentLicenseIssueDate">Current License Issue Date</label>
+            <p-calendar id="CurrentLicenseIssueDate" formControlName="CurrentLicenseIssueDate" [showIcon]="true"
+              dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="DriverPhoto">Driver Photo</label>
+            <input type="file" id="DriverPhoto" name="DriverPhoto" formControlName="DriverPhoto"
+              (change)="onFileSelected($event, 'DriverPhoto')" accept="image/*" />
+          </div>
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="PanCard">Pan Card</label>
+            <input type="file" id="PanCard" name="PanCard" formControlName="PanCard"
+              (change)="onFileSelected($event, 'PanCard')" accept="image/*" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="VoterId">Voter Id</label>
+            <input type="file" id="VoterId" name="VoterId" formControlName="VoterId"
+              (change)="onFileSelected($event, 'VoterId')" accept="image/*" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="AadharCard">Aadhar Card</label>
+            <input type="file" id="AadharCard" name="AadharCard" formControlName="AadharCard"
+              (change)="onFileSelected($event, 'AadharCard')" accept="image/*" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block font-bold mb-2" for="License">License</label>
+            <input type="file" id="License" name="License" formControlName="License"
+              (change)="onFileSelected($event, 'License')" accept="image/*" />
+          </div>
+        </div>
+      </p-fieldset>
+
+      <p-footer>
+        <button type="button" pButton label="Cancel" (click)="cancel()" class="p-button-secondary mx-1"></button>
+        <button type="submit" pButton [label]="isEditMode ? 'Update' : 'Save'" [disabled]="!driverForm.valid"></button>
+      </p-footer>
+    </p-card>
+  </form>
+</div>
+
+<!-- Step 2: Display Driver Details or Error Message -->
+<div *ngIf="currentStep === 1">
+  <div *ngIf="operationSuccessful">
+    <app-driver-detail [driver]="createdOrEditedDriver"></app-driver-detail>
+    <button type="button" pButton label="OK" (click)="resetFormAndNavigateBack()"></button>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+    <button type="button" pButton label="OK" (click)="currentStep = 0"></button>
+  </div>
+</div>

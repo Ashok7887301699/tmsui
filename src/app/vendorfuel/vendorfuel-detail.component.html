@@ -1,0 +1,13 @@
+
+
+<div *ngIf="vendorfuel">
+  <h2>VendorFuel Details</h2>
+  <p><strong>Id:</strong> {{ vendorfuel.id }}</p>
+  <p><strong>PetrolPumpName:</strong> {{ vendorfuel.PetrolPumpName }}</p>
+  <p><strong>Vendorname:</strong> {{ vendorfuel.Vendorname }}</p>
+  <p><strong>DVendorCode:</strong> {{ vendorfuel.DVendorCode }}</p>
+  <p><strong>Depot:</strong> {{ vendorfuel.Depot }}</p>
+  <p><strong>Status:</strong> {{ vendorfuel.status }}</p>
+  <p><strong>Created At:</strong> {{ vendorfuel.created_at | date }}</p>
+  <p><strong>Updated At:</strong> {{ vendorfuel.updated_at | date }}</p>
+</div>

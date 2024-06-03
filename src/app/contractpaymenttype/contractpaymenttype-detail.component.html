@@ -1,0 +1,10 @@
+
+
+<div *ngIf="paymenttype">
+  <h2>PaymentType Details</h2>
+  <p><strong>Id:</strong> {{ paymenttype.id }}</p>
+  <p><strong>PaymentType:</strong> {{ paymenttype.contract_paymenttype }}</p>
+  <p><strong>Status:</strong> {{ paymenttype.status }}</p>
+  <p><strong>Created At:</strong> {{ paymenttype.created_at | date }}</p>
+  <p><strong>Updated At:</strong> {{ paymenttype.updated_at | date }}</p>
+</div>

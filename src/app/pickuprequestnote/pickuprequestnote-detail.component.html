@@ -1,0 +1,64 @@
+<!-- src/app/tenant/tenant-detail.component.html -->
+
+<!-- <div *ngIf="pickupRequestNote">
+
+    <h2>pickup Request Note Details</h2>
+
+    <p><strong>PRN NO:</strong> {{ pickupRequestNote.id }}</p>
+    <p><strong>Username:</strong> {{ pickupRequestNote.created_by }}</p>
+    <p><strong>Vehicle No:</strong> {{ pickupRequestNote.vehicle_num }}</p>
+    <p><strong>PRNDate:</strong> {{ pickupRequestNote.pickup_datetime }}</p>
+    <p><strong>Hamali Amount:</strong> {{ pickupRequestNote.hamalivendoramount }}</p>
+    <p><strong>PRN Create Hamali Name:</strong> {{ pickupRequestNote.hamalivendorname }}</p>
+
+    <p><strong>Created At:</strong> {{ pickupRequestNote.created_at | date }}</p>
+    <p><strong>Updated At:</strong> {{ pickupRequestNote.updated_at | date }}</p>
+</div> -->
+
+<div *ngIf="pickupRequestNote" class="prn-details">
+    <div class="header">
+        <h2>Pickup Request Note Details</h2>
+    </div>
+    <div class="content">
+        <div class="detail-item">
+            <div class="label">PRN NO:</div>
+            <div class="value"> {{ pickupRequestNote.id }}</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="label">Vehicle No:</div>
+            <div class="value">{{ pickupRequestNote.vehicle_num }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Customer Name:</div>
+            <div class="value">{{ pickupRequestNote.contact_person_name }}</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="label">PRNDate:</div>
+            <div class="value">{{ pickupRequestNote.pickup_datetime }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Hamali Amount:</div>
+            <div class="value">{{ pickupRequestNote.hamalivendoramount }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">PRN Create Hamali Name:</div>
+            <div class="value">{{ pickupRequestNote.hamalivendorname }}</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="label">Created At:</div>
+            <div class="value">{{ pickupRequestNote.created_at | date }}</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="label">Updated At:</div>
+            <div class="value">{{ pickupRequestNote.updated_at | date: 'yyyy/MM/dd' }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Created By:</div>
+            <div class="value"> {{ pickupRequestNote.created_by }}</div>
+        </div>
+    </div>
+</div>

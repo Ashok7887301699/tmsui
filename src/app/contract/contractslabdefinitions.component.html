@@ -1,0 +1,49 @@
+<p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps>
+
+<p-messages [(value)]="messages"></p-messages>
+
+<div >
+  <p-fieldset legend="Contract Slab Definitions" class="scrollable-fieldset">
+    <p-card>
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <table>
+          <tbody>
+            <tr>
+              <th>Slab Number</th>
+              <th>Slab Lower Limit</th>
+              <th>Slab Upper Limit</th>
+              <th>Slab Rate Type</th>
+              <th>Slab Contract Type</th>
+
+            </tr>
+            <tr *ngFor="let slab of slabs; let i = index" class="input-row">
+              <td>
+                  <input type="number" [id]="'slab_number' + i" [formControlName]="'slab_number' + i" pInputText />
+              </td>
+              <td>
+                  <input type="text" [id]="'slab_lower_limit' + i" [formControlName]="'slab_lower_limit' + i" pInputText />
+              </td>
+              <td>
+                  <input type="text" [id]="'slab_upper_limit' + i" [formControlName]="'slab_upper_limit' + i" pInputText />
+              </td>
+              <td>
+                  <p-dropdown [options]="slab_rate_type" placeholder="Select a slab_rate_type" optionLabel="label" [id]="'slab_rate_type' + i" [formControlName]="'slab_rate_type' + i" optionValue="value" [showClear]="true"></p-dropdown>
+              </td>
+
+              <td>
+                <p-dropdown [options]="slab_contract_type" placeholder="Select a slab_contract_type" optionLabel="label" [id]="'slab_contract_type' + i" [formControlName]="'slab_contract_type' + i" optionValue="value" [showClear]="true"></p-dropdown>
+            </td>
+          </tr>
+          
+          </tbody>
+        </table>
+
+        <br /><br/>
+        <div class="submit-button-container">
+          <button type="submit" pButton>Submit</button>
+        </div>
+      </form>
+    </p-card>
+  </p-fieldset>
+</div>
+

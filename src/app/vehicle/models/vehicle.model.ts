@@ -1,0 +1,55 @@
+export interface Vehicle {
+    SrNo?: number;
+    VehicleMake: string;
+    Model: string;
+    Vehicle_No: string;
+    VendorName: string;
+    VendorType: string;
+    Depot?: string;
+    Payload?: string;
+    GVW: string;
+    Length: string;
+    Width: string;
+    Height: string;
+    RCBookNo: string;
+    RC_Validity: string;
+    RegDate: string;
+    RegistrationNo: string;
+    InsuranceNo: string;
+    Insurance_Validity: string;
+    AttachedDate: string;
+    Fitness_Validity: string;
+    Permit_validity: string;
+    Tax_validdity: string;
+    TaxStatus?: string;
+    PUCC_Validity: string;
+    Chassis_No: string;
+    Engine_No: string;
+    FuelTankCapacity: string;
+    GPSDeviceEnabled: string;
+    PermitStates: string;
+    NoOfTyres: string;
+    FTLType: string;
+    RateKm: string;
+    StandardMilageKmPerLtr?: string;
+    ControllingBranch: string;
+    Capacity: string;
+    UnloadedWeight: string;
+    VehicleBroker: string;
+    InsuranceCompany: string;
+    FitnessCertificateDate: string;
+    CertNo: string;
+    RTONo: string;
+    UploadRc?: string;
+    UploadInsuarance?: string;
+    UploadPermit?: string;
+    UploadPUC?: string;
+    Permit_No: string;
+    Fitness_No: string;
+    CloseTrip: string;
+    ActiveFlag: string;
+    MilageKM: string;
+    Milage: string;
+    created_at?: Date; // Assuming it's a date
+    updated_at?: Date; // Assuming it's a date
+}

@@ -1,0 +1,99 @@
+<!-- Import PrimeNG Steps and Messages components in your component template -->
+<p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<!-- Step 1: Tenant Form -->
+<div *ngIf="currentStep === 0">
+    <!-- Form layout using PrimeNG components -->
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <p-card>
+            <p-fieldset legend="Tenant Details">
+                <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+                    <div class="flex-auto">
+                        <label class="block  mb-2" for="tenant_id">Company Short name</label>
+                        <input type="text" id="tenant_id" formControlName="tenant_id" pInputText />
+                    </div>
+                    <div class="flex-auto">
+                        <label class="block  mb-2" for="login_id">Login Id</label>
+                        <input type="text" id="login_id" formControlName="login_id" pInputText />
+                    </div>
+
+                    <div class="flex-auto">
+                        <label class="block  mb-2" for="mobile_no">Mobile</label>
+                        <input type="text" id="mobile_no" formControlName="mobile_no" pInputText />
+                    </div>
+
+                    <div class="flex-auto">
+                        <label class="block  mb-2" for="email_id">Email Id</label>
+                        <input type="text" id="email_id" formControlName="email_id" pInputText />
+                    </div>
+
+                    <div class="flex-auto">
+                        <label class="block  mb-2" for="password_hash">Password</label>
+                        <input type="text" id="password_hash" formControlName="password_hash" pInputText />
+                    </div>
+
+                    <div class="flex-auto">
+                        <label class="block  mb-2" for="displayname">Display Name</label>
+                        <input type="text" id="displayname" formControlName="displayname" pInputText />
+                    </div>
+
+                    <div class="flex-auto col">
+                        <label class="block  mb-2" for="user_type">User Type</label>
+                        <p-dropdown id="user_type" [options]="userOptions" formControlName="user_type"
+                            placeholder="Select a user type" optionLabel="label" optionValue="value"></p-dropdown>
+                    </div>
+
+                    <!-- <div class="flex-auto">
+                    <label class="block  mb-2" for="role_id">Role</label>
+                    <input type="text" id="role_id" formControlName="role_id" pInputText />
+                </div> -->
+
+                    <div class="flex-auto">
+                        <label class="block mb-2" for="role_id">Role</label>
+                        <p-dropdown id="role_id" formControlName="role_id" placeholder="Select a role"
+                            [options]="roleOptions"></p-dropdown>
+                    </div>
+
+
+                    <div class="flex-auto">
+                        <label class="block font-bold mb-2" for="profile_pic_url">Profile Photo</label>
+                        <input type="file" id="profile_pic_url" name="profile_pic_url" formControlName="profile_pic_url"
+                            (change)="onFileSelected($event, 'profile_pic_url')" accept="image/*" />
+                    </div>
+
+                    <div class="flex-auto col-2">
+                        <label class="block mb-2" for="branches">Branch Code</label>
+                        <p-dropdown [options]="branchcodes" formControlName="branch_code"
+                            placeholder="Select Branch Code"></p-dropdown>
+                    </div>
+                    <div class="flex-auto">
+                        <label class="block  mb-2" for="status">Status</label>
+                        <p-dropdown id="status" [options]="statusOptions" formControlName="status"
+                            placeholder="Select a Status" optionLabel="label" optionValue="value"
+                            [showClear]="true"></p-dropdown>
+                    </div>
+                </div>
+            </p-fieldset>
+
+            <p-footer>
+                <button type="button" pButton label="Cancel" (click)="cancel()"
+                    class="p-button-secondary mx-1"></button>
+                <button type="submit" pButton [label]="isEditMode ? 'Update' : 'Save'"
+                    [disabled]="!userForm.valid"></button>
+            </p-footer>
+        </p-card>
+    </form>
+</div>
+
+
+<div *ngIf="currentStep === 1">
+    <div *ngIf="operationSuccessful">
+        <app-user-detail [user]="createdOrEditedUser"></app-user-detail>
+        <button type="button" pButton label="OK" (click)="resetFormAndNavigateBack()"></button>
+    </div>
+    <div *ngIf="!operationSuccessful">
+        <p-messages [value]="messages"></p-messages>
+        <button type="button" pButton label="OK" (click)="currentStep = 0"></button>
+    </div>
+</div>

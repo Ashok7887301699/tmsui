@@ -1,0 +1,10 @@
+
+
+<div *ngIf="packagetype">
+  <h2>PackageType Details</h2>
+  <p><strong>Id:</strong> {{ packagetype.id }}</p>
+  <p><strong>Name:</strong> {{ packagetype.package_type }}</p>
+  <p><strong>Status:</strong> {{ packagetype.status }}</p>
+  <p><strong>Created At:</strong> {{ packagetype.created_at | date }}</p>
+  <p><strong>Updated At:</strong> {{ packagetype.updated_at | date }}</p>
+</div>

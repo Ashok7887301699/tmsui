@@ -1,0 +1,7 @@
+<ng-container *ngIf="producttype; else loading">
+  <app-producttype-detail [producttype]="producttype"></app-producttype-detail>
+  <!-- PrimeNG Button Component -->
+  <button type="button" pButton label="OK" (click)="goBack()"></button>
+</ng-container>
+<ng-template #loading>
+</ng-template>

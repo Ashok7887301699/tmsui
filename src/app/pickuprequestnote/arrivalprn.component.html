@@ -1,0 +1,86 @@
+<!-- Import PrimeNG Steps and Messages components in your component template -->
+
+<p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<!-- Step 1: Tenant Form -->
+<div *ngIf="currentStep === 0">
+    <!-- Form layout using PrimeNG components -->
+    <form [formGroup]="pickuprequestnotearrivalForm">
+        <p-card>
+            <p-fieldset legend="PRN Details">
+                <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+                    <div class="flex-auto col-1">
+                        <input type="radio" id="bydate" name="option" value="bydate" formControlName="option">
+                        <label for="bydate">By Date</label>
+                    </div>
+                    <div class="flex-auto col-3">
+                        <label class="block font-bold mb-2" for="FromDate">From Date</label>
+                        <p-calendar formControlName="FromDate" [showIcon]="true" placeholder="From Date"></p-calendar>
+                    </div>
+                    <div class="flex-auto col-3">
+                        <label class="block font-bold mb-2" for="ToDate">To Date</label>
+                        <p-calendar formControlName="ToDate" [showIcon]="true" placeholder="To Date"></p-calendar>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="byprn" name="option" value="byprn" formControlName="option">
+                        <label for="byprn">By PRN</label>
+                    </div>
+
+                    <div class="flex-auto col-2">
+                        <label class="block font-bold mb-2" for="PRNNO">PRN NO</label>
+                        <input type="text" id="prnno" formControlName="prnno" pInputText />
+                    </div>
+                    <div class="flex-auto col-2" style="width: 100px;">
+                        <button type="button" pButton label="Search" class="p-button-primary" (click)="search()"></button>
+                    </div>
+                    <!-- Add radio button section -->
+                    <div class="flex-auto col-2">
+                    </div>
+
+                    <div *ngIf="searchResults && searchResults.length > 0" class="card flex flex-wrap gap-4 p-fluid mb-4">
+                        <p-table [tableStyle]="{ 'min-width': '70rem' }" [value]="searchResults">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>SR NO</th>
+                                    <th>PRN NO</th>
+                                    <th>PRN Date</th>
+                                    <th>VehicleNo</th>
+                                    <th>Location</th>
+                                    <th>Update Stock</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-result let-i="rowIndex">
+                                <tr *ngFor="let prn of result; let j = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ prn.id }}</td>
+                                    <td>{{ prn.created_at | date }}</td>
+                                    <td>{{ prn.vehicle_num }}</td>
+                                    <td>{{ prn.pickupaddress }}</td>
+                                    <td>
+
+                                        <!-- <button type="button" class="p-button-primary" (click)="updatestockarrivalprn(prn.id)">Update STOCK</button> -->
+                                        <button type="button" class="p-button p-button-primary" pButton label="Update" (click)="updatestockarrivalprn(prn.id)">
+      
+    </button>
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+
+
+
+
+                </div>
+            </p-fieldset>
+
+            <p-footer>
+                <button type="button" pButton label="Cancel" (click)="cancel()" class="p-button-secondary mx-1"></button>
+
+            </p-footer>
+        </p-card>
+    </form>
+</div>

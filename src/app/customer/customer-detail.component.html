@@ -1,0 +1,142 @@
+<!-- <div *ngIf="customer">
+  
+  <h2>Customer Type Details</h2>
+
+  <p><strong>sap_cust_code:</strong> {{ customer.sap_cust_code }}</p>
+  <p><strong>sap_cust_grp_code:</strong> {{ customer.sap_cust_grp_code }}</p>
+  <p><strong>CostCenter:</strong> {{ customer.CostCenter }}</p>
+  <p><strong>CustName:</strong> {{ customer.CustName }}</p>
+  <p><strong>Category:</strong> {{ customer.Category }}</p>
+  <p><strong>MobileNo:</strong> {{ customer.MobileNo }}</p>
+  <p><strong>PAN:</strong> {{ customer.PAN }}</p>
+  <p><strong>City:</strong> {{ customer.City}}</p>
+  <p><strong>Pincode:</strong> {{ customer.Pincode }}</p>
+  <p><strong>Location:</strong> {{ customer.Location }}</p>
+  <p><strong>TelNo:</strong> {{ customer.TelNo }}</p>
+  <p><strong>Address:</strong> {{ customer.Address }}</p>
+  <p><strong>CustNameMar:</strong> {{ customer.CustNameMar }}</p>
+  <p><strong>AddressMar:</strong> {{ customer.AddressMar }}</p>
+  <p><strong>BillAddressMar:</strong> {{ customer.BillAddressMar }}</p>
+  <p><strong>EmailId:</strong> {{ customer.EmailId }}</p>
+  <p><strong>BillingMail:</strong> {{ customer.BillingMail }}</p>
+  <p><strong>U_BP_Category:</strong> {{ customer.U_BP_Category }}</p>
+  <p><strong>sap_depot_name:</strong> {{ customer.sap_depot_name }}</p>
+  <p><strong>Status:</strong>  {{ customer.Status === '1' ? 'ACTIVATE' : 'DEACTIVATE' }}</p>
+  <p><strong>sap_create_date:</strong> {{ customer.sap_create_date | date: 'yyyy/MM/dd' }}</p>
+  <p><strong>Created At:</strong> {{ customer.created_at | date: 'yyyy/MM/dd' }}</p>
+  <p><strong>Updated At:</strong> {{ customer.updated_at | date: 'yyyy/MM/dd' }}</p>
+
+</div> -->
+<div *ngIf="customer" class="customer-details">
+  <div class="header">
+    <h2>Customer Details</h2>
+  </div>
+  <div class="content">
+    <div class="detail-item">
+      <div class="label">SAP/ERP Customer Code:</div>
+      <div class="value">{{ customer.sap_cust_code }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">TMS Customer Group Code:</div>
+      <div class="value">{{ customer.sap_cust_grp_code }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Cost Center:</div>
+      <div class="value">{{ customer.CostCenter }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Customer Name:</div>
+      <div class="value">{{ customer.CustName }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Category:</div>
+      <div class="value">{{ customer.Category }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Mobile Number:</div>
+      <div class="value">{{ customer.MobileNo }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">PAN:</div>
+      <div class="value">{{ customer.PAN }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">GST Number:</div>
+      <div class="value">{{ customer.GST_No }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">City:</div>
+      <div class="value">{{ customer.City }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Pincode:</div>
+      <div class="value">{{ customer.Pincode }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Location:</div>
+      <div class="value">{{ customer.Location }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Telephone Number:</div>
+      <div class="value">{{ customer.TelNo }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Address:</div>
+      <div class="value">{{ customer.Address }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Ind_type:</div>
+      <div class="value">{{ customer.sap_ind_type }}</div>
+    </div>
+    
+    <div class="detail-item">
+      <div class="label">Customer Name (Regional):</div>
+      <div class="value">{{ customer.CustNameMar }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Address (Regional):</div>
+      <div class="value">{{ customer.AddressMar }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Billing Address (Regional):</div>
+      <div class="value">{{ customer.BillAddressMar }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Billing Mail:</div>
+      <div class="value">{{ customer.BillingMail }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Billing Mobile Number:</div>
+      <div class="value">{{ customer.BillingMobileNo }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Billing Person:</div>
+      <div class="value">{{ customer.BiillingPerson }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Status:</div>
+      <div class="value">{{ customer.Status === '1' ? 'ACTIVATE' : 'DEACTIVATE' }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label"> Depot Name:</div>
+      <div class="value">{{ customer.sap_depot_name }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">SAP/ERP Create Date:</div>
+      <div class="value">{{ customer.sap_create_date | date: 'yyyy/MM/dd' }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Created At:</div>
+      <div class="value">{{ customer.created_at | date: 'yyyy/MM/dd' }}</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Updated At:</div>
+      <div class="value">{{ customer.updated_at | date: 'yyyy/MM/dd' }}</div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

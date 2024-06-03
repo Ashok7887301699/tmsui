@@ -1,0 +1,17 @@
+<!-- content-header.component.html -->
+<div class="content-header">
+  <div class="tenant-name">{{ userContext?.tenantName }}</div>
+  <div class="user-profile" *ngIf="userContext?.profilePicUrl">
+    <img
+      [src]="userContext?.profilePicUrl"
+      alt="User Picture"
+      class="user-picture"
+    />
+    <div class="user-details">
+      <div class="login-id">{{ userContext?.loginId }}</div>
+      <div class="display-name">{{ userContext?.displayName }}</div>
+      
+      <span (click)="logout()" class="logout-link">Logout</span>
+    </div>
+  </div>
+</div>

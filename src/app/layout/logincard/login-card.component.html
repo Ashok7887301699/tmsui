@@ -1,0 +1,23 @@
+<!-- Displaying the login card component -->
+
+<div class="login-card">
+  <h2>Login</h2>
+  <div class="form-group">
+    <label for="companyId">Company Id:</label>
+    <input id="companyId" type="text" pInputText [(ngModel)]="tenantId" />
+  </div>
+  <div class="form-group">
+    <label for="loginId">Login Id:</label>
+    <input id="loginId" type="text" pInputText [(ngModel)]="loginId" />
+  </div>
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input id="password" type="password" pInputText [(ngModel)]="password" />
+  </div>
+  <button
+    pButton
+    label="Sign In"
+    class="p-button-rounded"
+    (click)="onSignIn()"
+  ></button>
+</div>

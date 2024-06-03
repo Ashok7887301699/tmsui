@@ -1,0 +1,65 @@
+<div *ngIf="contract">
+  <div *ngIf="currentStep === 1">
+  <form [formGroup]="ServiceForm" (ngSubmit)="onSubmit()">  
+    <p-card>
+      <p-fieldset legend="Service Selection">
+        <div class="section">
+          <label style="font-weight: 800;">Service Type:</label>
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <p-checkbox formControlName="ftl" label="FTL" value="ftl"></p-checkbox>
+            <p-checkbox formControlName="ltl" label="LTL" value="ltl"></p-checkbox>
+          </div>
+        </div>
+        <div class="section">
+          <label style="font-weight: 800;">Rate Types Allowed:</label>
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <p-checkbox formControlName="perpkg" label="Per PKG" value="perpkg"></p-checkbox>
+            <p-checkbox formControlName="perkg" label="Per KG" value="perkg"></p-checkbox>
+            <p-checkbox formControlName="flat" label="Flat (In Rs.)" value="flat"></p-checkbox>
+            <p-checkbox formControlName="quintal" label="Quintal" value="quintal"></p-checkbox>
+          </div>
+        </div>
+        <div class="section">
+          <label style="font-weight: 800;">Slab Range Type:</label>
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <p-radioButton formControlName="slabRange" label="Per Pkg" value="perpkg"></p-radioButton>
+            <p-radioButton formControlName="slabRange" label="Per Kg" value="perkg"></p-radioButton>
+          </div>
+        </div>
+        <div class="section">
+          <label style="font-weight: 800;">Matrices Allowed:</label>
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <p-radioButton formControlName="Matrices" label="City-City" value="City-City"></p-radioButton>
+            <p-radioButton formControlName="Matrices" label="City-District" value="City-District"></p-radioButton>
+            <p-radioButton formControlName="Matrices" label="City-Taluka" value="City-Taluka"></p-radioButton>
+            <p-radioButton formControlName="Matrices" label="City-Pincode" value="City-Pincode"></p-radioButton>
+          </div>
+        </div> 
+        <div class="section">
+          <label style="font-weight: 800;">Pickup/Delivery:</label>
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <p-checkbox formControlName="gpgd" label="Godown Pickup-Godown Delivery" value="gpgd"></p-checkbox>
+            <p-checkbox formControlName="gpdd" label="Godown Pickup-Door Delivery" value="gpdd"></p-checkbox>
+            <p-checkbox formControlName="dpgd" label="Door Pickup-Godown Delivery" value="dpgd"></p-checkbox>
+            <p-checkbox formControlName="dpdd" label="Door Pickup-Door Delivery" value="dpdd"></p-checkbox>
+          </div>
+        </div>
+        <div class="section">
+          <label style="font-weight: 800;">Additional Charges:</label>
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <p-checkbox formControlName="excess" label="Allow Excess Weight" value="1"></p-checkbox>
+            <p-checkbox formControlName="door" label="Allow Door Delivery" value="1"></p-checkbox>
+            <input type="number" formControlName="document" placeholder="Document Charge" class="form-control">
+            <input type="number" formControlName="insurance" placeholder="Insurance" class="form-control">
+            <input type="number" formControlName="minimum_excess" placeholder="minimum_excess" class="form-control">
+
+          </div>
+        </div>        
+      </p-fieldset>
+      <p-footer>
+        <button type="button" pButton label="Cancel" (click)="cancel()" class="p-button-secondary mx-1"></button>
+        <button type="submit" pButton label="{{ isEditMode ? 'Update' : 'Save' }}" [disabled]="!ServiceForm.valid" class="mx-1"></button>
+      </p-footer>
+    </p-card>
+  </form>
+</div>

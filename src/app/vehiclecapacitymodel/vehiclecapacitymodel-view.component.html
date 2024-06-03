@@ -1,0 +1,8 @@
+<ng-container *ngIf="vehiclecapacitymodel; else loading">
+    <app-vehiclecapacitymodel-detail [vehiclecapacitymodel]="vehiclecapacitymodel"></app-vehiclecapacitymodel-detail>
+    <!-- PrimeNG Button Component -->
+    <button type="button" pButton label="OK" (click)="goBack()"></button>
+  </ng-container>
+  <ng-template #loading>
+  </ng-template>
+  

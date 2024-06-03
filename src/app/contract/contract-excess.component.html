@@ -1,0 +1,38 @@
+<div *ngIf="contract">
+<div *ngIf="currentStep === 2">
+<div class="p-fluid">
+  <form [formGroup]="Excessform" (ngSubmit)="onSubmit()">
+    <p-card>
+      <p-fieldset legend="Excess Selection">
+        <div class="card flex flex-wrap gap-3 p-fluid">
+          <div class="p-field">
+            <label style="font-weight: 800;" class="p-d-block" for="rowCount">Enter No. of Rows:</label>
+            <input type="number" id="rowCount" class="p-inputtext" formControlName="rowCount"/>
+          </div>
+        </div>
+        
+        <table class="p-table">
+          <thead>
+            <tr>
+              <th>Lower Slab Limit</th>
+              <th>Upper Slab Limit</th>
+              <th>Rates</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let index of rowIndexes">
+              <td><input type="text" class="p-inputtext" formControlName="lower_slab_limit[{{index}}]" /></td>
+              <td><input type="text" class="p-inputtext" formControlName="upper_slab_limit[{{index}}]" /></td>
+              <td><input type="text" class="p-inputtext" formControlName="rate[{{index}}]" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </p-fieldset>
+      <p-footer>
+        <button type="submit" pButton label="{{ isEditMode ? 'Update' : 'Save' }}" [disabled]="!Excessform.valid" class="mx-1"></button>
+      </p-footer>
+    </p-card>
+  </form>
+</div>
+</div>
+</div>

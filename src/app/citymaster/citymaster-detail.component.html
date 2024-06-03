@@ -1,0 +1,131 @@
+<!-- src/app/citymaster/citymaster-detail.component.html -->
+
+<!-- <div *ngIf="citymaster">
+    <h2>City Master Details</h2>
+    <p><strong>Id:</strong> {{ citymaster.id }}</p>
+
+    <p><strong>State:</strong> {{ citymaster.State }}</p>
+    <p><strong>District:</strong> {{ citymaster.District}}</p>
+    <p><strong>Taluka:</strong> {{ citymaster.Taluka}}</p>
+    <p><strong>Pincode:</strong> {{ citymaster.Pincode}}</p>
+    <p><strong>City Name Eng:</strong> {{ citymaster.CityNameEng }}</p>
+    <p><strong>City Name Mar:</strong> {{ citymaster.CityNameMar }}</p>
+    <p><strong>Latitude:</strong> {{ citymaster.Latitude }}</p>
+    <p><strong>Longitude:</strong> {{ citymaster.Longitude }}</p>
+    <p><strong>Route No:</strong> {{ citymaster.RouteNo }}</p>
+    <p><strong>Del Depot :</strong> {{ citymaster.DelDepot}}</p>
+    <p><strong>Near State Highway :</strong> {{ citymaster.NearStateHighway}}</p>
+    <p><strong>Nearest National Highway :</strong> {{ citymaster.NearestNationalHighway}}</p>
+    <p><strong>Status :</strong> {{ citymaster.status}}</p>
+    <p><strong>Add User :</strong> {{ citymaster.AddUser}}</p>
+    <p><strong>Created At:</strong> {{ citymaster.created_at | date }}</p>
+    <p><strong>Updated At:</strong> {{ citymaster.updated_at | date }}</p>
+</div> -->
+
+
+
+
+<div *ngIf="citymaster" class="Citymaster-details">
+    <div class="header">
+        <h2>City Master Details</h2>
+    </div>
+    <div class="content">
+        <div class="detail-item">
+            <div class="label">Id:</div>
+            <div class="value"> {{ citymaster.id }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Country:</div>
+            <div class="value">{{ citymaster.Country }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">State:</div>
+            <div class="value">{{ citymaster.State }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">District:</div>
+            <div class="value">{{ citymaster.District}}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Taluka:</div>
+            <div class="value">{{ citymaster.Taluka}}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Pincode:</div>
+            <div class="value">{{ citymaster.Pincode}}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Zone:</div>
+            <div class="value">{{ citymaster.Zone}}</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="label">City Name Eng:</div>
+            <div class="value">{{ citymaster.CityNameEng }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Regional City Name:</div>
+            <div class="value">{{ citymaster.CityNameMar }}</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="label">City Name Gmap:</div>
+            <div class="value">{{ citymaster.CityNameGmap }}</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="label">Latitude:</div>
+            <div class="value">{{ citymaster.Latitude }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Longitude:</div>
+            <div class="value">{{ citymaster.Longitude }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Route No:</div>
+            <div class="value">{{ citymaster.RouteNo }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Route Sequens No:</div>
+            <div class="value">{{ citymaster.RouteSequens }}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Del Depot:</div>
+            <div class="value">{{ citymaster.DelDepot}}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Tat:</div>
+            <div class="value">{{ citymaster.Tat}}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">ODA:</div>
+            <div class="value">{{ citymaster.ODA}}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Near State Highway :</div>
+            <div class="value">{{ citymaster.NearStateHighway}}</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="label">Nearest National Highway:</div>
+            <div class="value">{{ citymaster.NearestNationalHighway}}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Status :</div>
+            <div class="value">{{ citymaster.status}}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label"> Add User :</div>
+            <div class="value">{{ citymaster.AddUser}}</div>
+        </div>
+        <div class="detail-item">
+            <div class="label">Created At:</div>
+            <div class="value">{{ citymaster.created_at | date }}</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="label">Updated At:</div>
+            <div class="value">{{ citymaster.updated_at | date: 'yyyy/MM/dd' }}</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+<!-- <p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps> -->
+<p-messages [(value)]="messages"></p-messages>
+
+<div *ngIf="contract">
+  <p-card>
+    <p-fieldset legend="Contract slab Rate" class="scrollable-fieldset">
+      <button pButton type="button" (click)="addRow()" label="Add Row"></button>
+      <br><br />
+      <form [formGroup]="contractslabrateForm" (ngSubmit)="onSubmit()">
+        <div class="card">
+          <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header" let-columns>
+
+              <div formArrayName="contractslabrates">
+                <div *ngFor="let contract of contractslabrates.controls; let i = index" [formGroupName]="i">
+                  <tr>
+                    <th>From City</th>
+                    <th>To City</th>
+                    <th>Transit Days</th>
+                    <th>zone</th>
+                    <th>slab 1</th>
+                    <th>slab 2</th>
+                    <th>slab 3</th>
+                    <th>slab 4</th>
+                    <th>slab 5</th>
+                    <th>slab 6</th>
+                    <th>slab 7</th>
+                    <th>slab 8</th>
+
+                  </tr>
+                  <tr>
+
+                    <td>
+                      <!-- Import AutoComplete module -->
+                      <p-autoComplete [suggestions]="suggestions" formControlName="from_place"
+                        (completeMethod)="searchcity($event)"></p-autoComplete>
+
+
+                      <!-- <input type="text" id="from_place" formControlName="from_place"   (completeMethod)="searchcity($event)" pInputText /> -->
+                    </td>
+                    <p-autoComplete [suggestions]="suggestions" formControlName="to_place" id="to_place"
+                      class="p-inputtext-sm" (completeMethod)="searchtocity($event)"></p-autoComplete>
+
+                    <!-- <td><input type="text" id="to_place" formControlName="to_place"  (completeMethod)="searchtocity($event)" pInputText /></td> -->
+                    <td>
+                      <input type="text" id="transit_tat" formControlName="transit_tat" pInputText />
+                    </td>
+                    <td>
+                      <input type="text" id="zone" formControlName="zone" pInputText />
+                    </td>
+                    <td>
+                      <input type="text" id="slab1" formControlName="slab1" pInputText />
+                    </td>
+                    <td>
+                      <input type="text" id="slab2" formControlName="slab2" pInputText />
+                    </td>
+                    <td>
+                      <input type="text" id="slab3" formControlName="slab3" pInputText />
+                    </td>
+                    <td>
+                      <input type="text" id="slab4" formControlName="slab4" pInputText />
+                    </td>
+                    <td>
+                      <input type="text" id="slab5" formControlName="slab5" pInputText />
+                    </td>
+                    <td>
+                      <input type="text" id="slab6" formControlName="slab6" pInputText />
+                    </td>
+                    <td>
+                      <input type="text" id="slab7" formControlName="slab7" pInputText />
+                    </td>
+                    <td>
+                      <input type="text" id="slab8" formControlName="slab8" pInputText />
+                    </td>
+
+                    <td>
+                      <p-dropdown [options]="slab_contract_type" placeholder="Select a slab_contract_type" optionLabel="label" id="slab_contract_type" formControlName="slab_contract_type" optionValue="value" [showClear]="true"></p-dropdown>
+                  </td>
+                  </tr>
+                </div>
+              </div>
+              <br><br/>
+              <button pButton type="submit">Submit</button>
+
+            </ng-template>
+          </p-table>
+        </div>
+
+
+      </form>
+      <br><br />
+      <form [formGroup]="contractslabrateForm">
+        <div class="form-group">
+          <input type="file" pInputText (change)="Upload($event)" accept=".xlsx, .xls, .CSV" />
+        </div>
+      </form>
+      <a href="#" (click)="downloadExcelFormat()" style="margin-left: 950px;" class="p-button-secondary">Download Excel
+        Format</a>
+    </p-fieldset>
+  </p-card>
+
+</div>

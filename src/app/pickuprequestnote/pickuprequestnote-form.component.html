@@ -1,0 +1,111 @@
+<!-- Import PrimeNG Steps and Messages components in your component template -->
+<p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<!-- Step 1: Tenant Form -->
+<div *ngIf="currentStep === 0">
+    <!-- Form layout using PrimeNG components -->
+    <form [formGroup]="pickuprequestnoteForm" (ngSubmit)="onSubmit()">
+        <p-card>
+            <p-fieldset legend="PRN Details">
+                <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+                    <div class="flex-auto col-3">
+                        <label class="block font-bold mb-2" for="FromDate">From Date</label>
+                        <p-calendar formControlName="FromDate" [showIcon]="true" placeholder="From Date"></p-calendar>
+                    </div>
+                    <div class="flex-auto col-3">
+                        <label class="block font-bold mb-2" for="ToDate">To Date</label>
+                        <p-calendar formControlName="ToDate" [showIcon]="true" placeholder="To Date"></p-calendar>
+                    </div>
+                </div>
+
+                <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+
+
+                    <div class="flex-auto col-3">
+                        <label class="block font-bold mb-2" for="customername">Contract Party</label>
+
+                        <p-autoComplete id="contact_person_name" [suggestions]="suggestions" formControlName="contact_person_name" (completeMethod)="search($event)"></p-autoComplete>
+                    </div>
+
+                    <div class="flex-auto col-3">
+                        <label class="block font-bold mb-2" for="vehiclenumber">Vehicle Number</label>
+
+                        <p-autoComplete [suggestions]="suggestions" formControlName="vehicle_num" (completeMethod)="searchVehicle($event)" (onSelect)="fetchLRNumbers($event)"></p-autoComplete>
+
+                    </div>
+                </div>
+
+
+                <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+                    <div class="flex-auto col-2">
+                        <label class="block font-bold mb-2" for="loader_vendor_id">Hamali Vendor Name</label>
+                        <p-dropdown id="loader_vendor_id" [options]="hamalivendornameOptions" formControlName="loader_vendor_id" placeholder="Hamali Vendor Name" optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
+                    </div>
+
+                    <div class="flex-auto col-2">
+                        <label class="block font-bold mb-2" for="total_labour_charges">Hamali Amount</label>
+                        <input type="text" id="total_labour_charges" formControlName="total_labour_charges" pInputText />
+                    </div>
+
+                </div>
+
+                <!-- <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+                    <p-table [tableStyle]="{ 'min-width': '70rem' }" [value]="lrNumbers">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>SR NO</th>
+                                <th>LR NO</th>
+                                <th>PKG NO</th>
+                                <th>Select</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-lrNumberArray let-i="rowIndex">
+                            <tr *ngFor="let lrNumber of lrNumberArray; let j = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ lrNumber }}</td>
+                                <th></th>
+                                <td>
+                                    <p-checkbox [formControl]="lrCheckboxes[i * lrNumberArray.length + j]" [binary]="true" inputId="binary_{{i}}"></p-checkbox>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div> -->
+
+                <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+                    <p-table [tableStyle]="{ 'min-width': '70rem' }" [value]="lrNumbers">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>SR NO</th>
+                                <th>LR NO</th>
+                                <th>PKG NO</th>
+                                <th>Select</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-lrNumber let-i="rowIndex">
+                            <tr>
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ lrNumber.lr_id }}</td>
+                                <!-- Display LR number -->
+                                <td>{{ lrNumber.num_of_pkgs }}</td>
+                                <!-- Display package number -->
+                                <td>
+                                    <p-checkbox [formControl]="lrCheckboxes[i]" [binary]="true" inputId="binary_{{i}}" [value]="{ lrNumber: lrNumber.lr_id, pkgNumber: lrNumber.pkgno }"></p-checkbox>
+
+                                </td>
+
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+
+            </p-fieldset>
+
+            <p-footer>
+                <button type="button" pButton label="Cancel" (click)="cancel()" class="p-button-secondary mx-1"></button>
+                <button type="submit" pButton [label]="isEditMode ? 'Update' : 'Save'" [disabled]="!pickuprequestnoteForm.valid"></button>
+            </p-footer>
+        </p-card>
+    </form>
+</div>

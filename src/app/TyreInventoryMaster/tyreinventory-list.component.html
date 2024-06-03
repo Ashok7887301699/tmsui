@@ -1,0 +1,207 @@
+<p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+<div class="tenant-list-container">
+  <p-toast></p-toast>
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+  <!-- Filter Panel -->
+  <p-accordion>
+    <p-accordionTab header="Filters">
+      <div class="p-fluid filter-grid">
+        <!-- Name Filter -->
+        <div class="filter-field1">
+          <span class="p-float-label p-input-icon-right">
+            <i class="pi pi-times" (click)="resetOneByOneFilters()" *ngIf="filters.tyre_code"></i>
+            <input type="text" pInputText id="tyre_code" [(ngModel)]="filters.tyre_code" (input)="applyFilters()" />
+            <label for="tyre_code">Tyre Code</label>
+          </span>
+        </div>
+
+        <!-- tyre_number Filter -->
+        <div class="filter-field1">
+          <span class="p-float-label p-input-icon-right">
+            <i class="pi pi-times" (click)="resetOneByOneFilters()" *ngIf="filters.tyre_number"></i>
+            <input type="text" pInputText id="tyre_number" [(ngModel)]="filters.tyre_number" (input)="applyFilters()" />
+            <label for="tyre_number">Tyre Number</label>
+          </span>
+        </div>
+
+        <!-- Status Filter -->
+        <div class="filter-field1"> <span class="p-float-label">
+            <p-dropdown [options]="statusOptions" [(ngModel)]="filters.status" (onChange)="applyFilters()"
+              optionLabel="label" optionValue="value" [showClear]="true" id="Status"></p-dropdown>
+            <label for="Status">Status</label></span>
+        </div>
+
+<!-- tyre_status Filter -->
+<div class="filter-field1"> <span class="p-float-label">
+    <p-dropdown [options]="TyreStatusOptions" [(ngModel)]="filters.tyre_status" (onChange)="applyFilters()"
+      optionLabel="label" optionValue="value" [showClear]="true" id="tyre_status"></p-dropdown>
+    <label for="tyre_status">tyre_status</label></span>
+</div>
+     
+
+<div class="filter-field1">
+    <div class="date-filter-container">
+      <span class="p-float-label">
+      <p-calendar
+        id="createdSapFrom"
+        [(ngModel)]="filters.purchase_date_from"
+        (onSelect)="applyFilters()"
+        [showIcon]="true"
+        (onClear)="resetOneByOneFilters()"
+        [showClear]="true"
+      ></p-calendar>
+      <label for="createdSapFrom"> purchase From</label>
+    </span> 
+
+    </div>
+  </div>
+
+  <!--Created Sap To Filter -->
+  <div class="filter-field1">
+    <div class="date-filter-container">
+      <span class="p-float-label">
+
+      <p-calendar
+        id="createdSapTo"
+        [(ngModel)]="filters.purchase_date_to"
+        (onSelect)="applyFilters()"
+        [showIcon]="true"
+        (onClear)="resetOneByOneFilters()"
+        [showClear]="true"
+      ></p-calendar><label for="createdSapTo"> purchase To</label></span>
+    </div>
+  </div>
+
+
+        <!-- Created From Filter -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar id="createdFrom" [(ngModel)]="filters.created_from" (onSelect)="applyFilters()"
+                [showIcon]="true" [showClear]="true" (onClear)="resetOneByOneFilters()">
+              </p-calendar>
+              <label for="createdFrom">Created From</label>
+            </span>
+          </div>
+        </div>
+
+        <!-- Created To Date Filter -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar id="createdTo" [(ngModel)]="filters.created_to" (onSelect)="applyFilters()" [showIcon]="true"
+                [showClear]="true" (onClear)="resetOneByOneFilters()">
+              </p-calendar>
+              <label for="Status">Created To</label>
+            </span>
+          </div>
+        </div>
+
+        <!-- Updated From Date Filter -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar id="updatedFrom" [(ngModel)]="filters.updated_from" (onSelect)="applyFilters()"
+                [showIcon]="true" placeholder="Updated From" [showClear]="true"
+                (onClear)="resetOneByOneFilters()"></p-calendar>
+              <label for="Status">Updated From</label>
+            </span>
+          </div>
+        </div>
+
+        <!-- Updated From Date Filter -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar id="updatedTo" [(ngModel)]="filters.updated_to" (onSelect)="applyFilters()" [showIcon]="true"
+                placeholder="Updated To" [showClear]="true" (onClear)="resetOneByOneFilters()"></p-calendar>
+              <label for="Status">Updated To</label>
+            </span>
+          </div>
+        </div>
+
+        <!-- Sort Order Filter -->
+        <div class="filter-field1">
+          <span class="p-float-label">
+            <p-dropdown [options]="sortOrderOptions" [(ngModel)]="filters.sort_order" (onChange)="applyFilters()"
+              [showClear]="true" optionLabel="label" optionValue="value" id="sort_order"></p-dropdown>
+            <label for="sort_order">Sort Order</label>
+          </span>
+        </div>
+
+        <!-- Reset All Filters  -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <button type="button" pButton label="Reset All Filters" (click)="resetAllFilters()"
+              icon="pi pi-refresh"></button>
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+
+  <!-- Action icons for CRUD operations -->
+  <div class="action-icons">
+    <i class="pi pi-plus" (click)="createNewRecord()"></i>
+    <i class="pi pi-eye" (click)="viewRecord()"></i>
+    <i class="pi pi-pencil" (click)="editRecord()"></i>
+    <i class="pi pi-ban" (click)="deactivateRecord()"></i>
+    <i class="pi pi-trash" (click)="deleteRecord()"></i>
+  </div>
+
+  <!-- Search and Sort Filters -->
+  <div class="filters">
+    <!-- Add your search and sort filter inputs here -->
+    <!-- Example: <input type="text" pInputText placeholder="Search by name" (input)="applyFilters({name: $event.target.value})"> -->
+  </div>
+
+  <!-- Tenant Table -->
+  <p-table [value]="tyreinventory" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [scrollable]="true"
+  scrollHeight="500px" scrollWidth="100%" [rowsPerPageOptions]="rowsPerPageOptions" styleClass="p-datatable-gridlines"
+  [showCurrentPageReport]="true" currentPageReportTemplate="{first} to {last} of {totalRecords} records" [lazy]="true"
+  [loading]="loading" (onLazyLoad)="loadTyreInventoryData($event)" selectionMode="single" [(selection)]="selectedTyreId"
+  (onRowSelect)="onRowSelect($event)">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Sr.No</th>
+        <th>Tyre&nbsp;Code</th>
+        <th>Tyre&nbsp;Number</th>
+        <th>Tyre&nbsp;Category</th>
+        <th>Manufacturer</th>
+        <th>Tyre&nbsp;Size</th>
+        <th>Tyre&nbsp;Pattern</th>
+        <th>Purchase&nbsp;Date</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Tyre&nbsp;Type</th>
+        <th>Tyre&nbsp;Position</th>
+        <th>Tyre&nbsp;Weight</th>
+        <th>Tyre&nbsp;Status</th>
+        <th>Status</th>
+        <th>Created&nbsp;At</th>
+        <th>Updated&nbsp;At</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-tyreinventory let-rowIndex="rowIndex">
+      <tr [pSelectableRow]="tyreinventory">
+        <td>{{ rowIndex + 1 }}</td>
+        <td>{{ tyreinventory.tyre_code }}</td>
+        <td>{{ tyreinventory.tyre_number }}</td>
+        <td>{{ tyreinventory.tyre_category }}</td>
+        <td>{{ tyreinventory.manufacturer }}</td>
+        <td>{{ tyreinventory.tyre_size }}</td>
+        <td>{{ tyreinventory.tyre_pattern }}</td>
+        <td>{{ tyreinventory.purchase_date }}</td>
+        <td>{{ tyreinventory.qty }}</td>
+        <td>{{ tyreinventory.price }}</td>
+        <td>{{ tyreinventory.tyre_type }}</td>
+        <td>{{ tyreinventory.tyre_position }}</td>
+        <td>{{ tyreinventory.tyre_weight }}</td>
+        <td>{{ tyreinventory.tyre_status }}</td>
+        <td>{{ tyreinventory.status }}</td>
+        <td>{{ tyreinventory.created_at | date : "medium" }}</td>
+        <td>{{ tyreinventory.updated_at | date : "medium" }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -1,0 +1,62 @@
+<p-steps
+  [model]="steps"
+  [(activeIndex)]="currentStep"
+  [readonly]="false"
+></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<!-- Step 1: Tenant Form -->
+<div *ngIf="currentStep === 0">
+<form [formGroup]="vendorfuelForm" (ngSubmit)="onSubmit()">
+  <p-card>
+    <p-fieldset legend="VendorFuel Form">
+      <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+        <div class="flex-auto">
+        <label class="block  mb-2" for="PetrolPumpName">Petrol Pump Name</label>
+        <input type="text" id="PetrolPumpName" formControlName="PetrolPumpName" pInputText />
+      </div>
+      <div class="flex-auto">
+        <label class="block  mb-2" for="Vendorname">Vendor Name</label>
+        <input type="text" id="Vendorname" formControlName="Vendorname" pInputText />
+      </div>
+      </div>
+      <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+        <div class="flex-auto">
+          <label class="block  mb-2" for="DVendorCode">D Vendor Code</label>
+          <input type="text" id="DVendorCode" formControlName="DVendorCode" pInputText />
+        </div>
+        <div class="flex-auto">
+          <label class="block  mb-2" for="Depot">Brach/Hub</label>
+          <input type="text" id="Depot" formControlName="Depot" pInputText />
+        </div>
+        </div>
+        <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+      <div class="flex-auto">
+        <label class="block  mb-2 " for="status">Status</label>
+        <p-dropdown id="status" [options]="statusOptions" formControlName="status" placeholder="Select a Status" optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
+    </div>
+  </div>
+    </p-fieldset>
+    <p-footer>
+      <button type="button" pButton label="Cancel" (click)="cancel()" class="p-button-secondary mx-1"></button>
+      <button type="submit" pButton [label]="isEditMode ? 'Update' : 'Save'" [disabled]="!vendorfuelForm.valid"></button>
+    </p-footer>
+  </p-card>
+</form>
+</div>
+<!-- Step 2: Display Tenant Details or Error Message -->
+<div *ngIf="currentStep === 1">
+  <div *ngIf="operationSuccessful">
+    <app-vendorfuel-detail [vendorfuel]="createdOrEditedVendorFuel"></app-vendorfuel-detail>
+    <button
+      type="button"
+      pButton
+      label="OK"
+      (click)="resetFormAndNavigateBack()"
+    ></button>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+    <button type="button" pButton label="OK" (click)="currentStep = 0"></button>
+  </div>
+</div>

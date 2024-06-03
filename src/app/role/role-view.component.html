@@ -1,0 +1,9 @@
+<ng-container *ngIf="role; else loading">
+    <app-role-detail [role]="role"></app-role-detail>
+    <!-- PrimeNG Button Component -->
+    <button type="button" pButton label="OK" (click)="goBack()"></button>
+  </ng-container>
+  <ng-template #loading>
+  </ng-template>
+  
+

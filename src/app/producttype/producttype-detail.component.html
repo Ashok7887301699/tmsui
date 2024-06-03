@@ -1,0 +1,11 @@
+<!-- src/app/producttype/producttype-detail.component.html -->
+
+<div *ngIf="producttype">
+    <h2>Product Type Details</h2>
+    <p><strong>Id:</strong> {{ producttype.id }}</p>
+    <p><strong>Product Type:</strong> {{ producttype.product_type }}</p>
+    <p><strong>Status:</strong> {{ producttype.status }}</p>
+    <p><strong>Created At:</strong> {{ producttype.created_at | date }}</p>
+    <p><strong>Updated At:</strong> {{ producttype.updated_at | date }}</p>
+  </div>
+  

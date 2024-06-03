@@ -1,0 +1,218 @@
+<p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+<div class="tenant-list-container">
+    <p-toast></p-toast>
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+    <!-- Filter Panel -->
+    <p-accordion>
+        <p-accordionTab header="Filters">
+            <div class="p-fluid filter-grid">
+                <!-- Name Filter -->
+                <div class="filter-field">
+                    <span class="p-float-label">
+                        <input type="text" pInputText id="name" [(ngModel)]="filters.name" (input)="applyFilters()" />
+                        <label for="name">Name</label>
+                    </span>
+                </div>
+
+                <!-- Short Name Filter -->
+                <div class="filter-field">
+                    <span class="p-float-label">
+                        <input type="text" pInputText id="shortName" [(ngModel)]="filters.short_name"
+                            (input)="applyFilters()" />
+                        <label for="shortName">Short Name</label>
+                    </span>
+                </div>
+
+                <!-- Status Filter -->
+                <div class="filter-field">
+                    <p-dropdown [options]="statusOptions" [(ngModel)]="filters.status" (onChange)="applyFilters()"
+                        placeholder="Select a Status" optionLabel="label" optionValue="value"></p-dropdown>
+                </div>
+
+                <!-- Created From Date Filter -->
+                <div class="filter-field">
+                    <div class="date-filter-container">
+                        <p-calendar id="createdFrom" [(ngModel)]="filters.created_from" (onSelect)="applyFilters()"
+                            [showIcon]="true" placeholder="Created From"></p-calendar>
+                    </div>
+                </div>
+
+                <!-- Created To Date Filter -->
+                <div class="filter-field">
+                    <div class="date-filter-container">
+                        <p-calendar id="createdTo" [(ngModel)]="filters.created_to" (onSelect)="applyFilters()"
+                            [showIcon]="true" placeholder="Created To"></p-calendar>
+                        <i class="pi pi-refresh" (click)="resetCreatedDates()"></i>
+                    </div>
+                </div>
+
+                <!-- Updated From Date Filter -->
+                <div class="filter-field">
+                    <div class="date-filter-container">
+                        <p-calendar id="updatedFrom" [(ngModel)]="filters.updated_from" (onSelect)="applyFilters()"
+                            [showIcon]="true" placeholder="Updated From"></p-calendar>
+                    </div>
+                </div>
+
+                <!-- Updated To Date Filter -->
+                <div class="filter-field">
+                    <div class="date-filter-container">
+                        <p-calendar id="updatedTo" [(ngModel)]="filters.updated_to" (onSelect)="applyFilters()"
+                            [showIcon]="true" placeholder="Updated To"></p-calendar>
+                        <i class="pi pi-refresh" (click)="resetUpdatedDates()"></i>
+                    </div>
+                </div>
+
+                <!-- Sort By Filter -->
+                <div class="filter-field">
+                    <p-dropdown [options]="sortByOptions" [(ngModel)]="filters.sort_by" (onChange)="applyFilters()"
+                        placeholder="Sort By" optionLabel="label" optionValue="value"></p-dropdown>
+                </div>
+
+                <!-- Sort Order Filter -->
+                <div class="filter-field">
+                    <p-dropdown [options]="sortOrderOptions" [(ngModel)]="filters.sort_order"
+                        (onChange)="applyFilters()" placeholder="Sort Order" optionLabel="label"
+                        optionValue="value"></p-dropdown>
+                </div>
+            </div>
+        </p-accordionTab>
+    </p-accordion>
+
+    <!-- Action icons for CRUD operations -->
+    <div class="action-icons">
+        <i class="pi pi-plus" (click)="createNewRecord()"></i>
+        <i class="pi pi-eye" (click)="viewRecord()"></i>
+        <i class="pi pi-pencil" (click)="editRecord()"></i>
+        <i class="pi pi-ban" (click)="deactivateRecord()"></i>
+        <i class="pi pi-trash" (click)="deleteRecord()"></i>
+    </div>
+
+    <!-- Search and Sort Filters -->
+    <div class="filters">
+        <!-- Add your search and sort filter inputs here -->
+        <!-- Example: <input type="text" pInputText placeholder="Search by name" (input)="applyFilters({name: $event.target.value})"> -->
+    </div>
+
+    <!-- Driver Table -->
+    <p-table [value]="drivers" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [scrollable]="true"
+        scrollHeight="500px" scrollWidth="100%" [rowsPerPageOptions]="rowsPerPageOptions"
+        styleClass="p-datatable-gridlines" [showCurrentPageReport]="true"
+        currentPageReportTemplate="{first} to {last} of {totalRecords} records" [lazy]="true" [loading]="loading"
+        (onLazyLoad)="loadDrivers($event)" selectionMode="single" [(selection)]="selectedDriverId"
+        (onRowSelect)="onRowSelect($event)">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Driver&nbsp;Code</th>
+                <th>SAPId</th>
+                <th>BranchCode</th>
+                <th>Driver&nbsp;Name</th>
+                <th>Location</th>
+                <th>Mobile&nbsp;Number</th>
+                <th>Permanent&nbsp;Address</th>
+                <th>Current&nbsp;Address</th>
+                <th>License&nbsp;Number</th>
+                <th>License&nbsp;Validity</th>
+                <th>Issued&nbsp;By&nbsp;RTO</th>
+                <th>First&nbsp;License&nbsp;Issue&nbsp;Date</th>
+                <th>Close&nbsp;Trip</th>
+                <th>Driver&nbsp;Fathe&nbsp; Name</th>
+                <th>Vehicle&nbsp;Number</th>
+                <th>Permanent&nbsp;City</th>
+                <th>Permanent&nbsp;Pincode</th>
+                <th>Current&nbsp;City</th>
+                <th>Current&nbsp;Pincode</th>
+                <th>Guarantor&nbsp;Name</th>
+                <th>Status</th>
+                <th>Driver&nbsp;Category</th>
+                <th>DOB</th>
+                <th>DOJ</th>
+                <th>Ethinicity</th>
+                <th>Current&nbsp;License&nbsp;Issue&nbsp;Date</th>
+                <th>License&nbsp;Verified&nbsp;Date</th>
+                <th>License&nbsp;Verified</th>
+                <th>Address&nbsp;Verified</th>
+                <th>Driver&nbsp;Photo</th>
+                <th>Pan&nbsp;Card</th>
+                <th>Voter&nbsp;Id</th>
+                <th>Aadhar&nbsp;Card</th>
+                <th>License</th>
+                <th>Created&nbsp;At</th>
+                <th>Updated&nbsp;At</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-driver>
+            <tr [pSelectableRow]="driver">
+                <td>{{ driver.id }}</td>
+                <td>{{ driver.DriverCode }}</td>
+                <td>{{ driver.SAPId }}</td>
+                <td>{{ driver.BranchCode | uppercase }}</td>
+                <td>{{ driver.FirstName }} {{ driver.MiddleName }} {{ driver.LastName }}</td>
+                <td>{{ driver.Location }}</td>
+                <td>{{ driver.MobileNumber }}</td>
+                <td>{{ driver.PermanentAddress }}</td>
+                <td>{{ driver.CurrentAddress }}</td>
+                <td>{{ driver.LicenseNumber }}</td>
+                <td>{{ driver.LicenseValidity }} </td>
+                <td>{{ driver.IssuedByRTO }}</td>
+                <td>{{ driver.FirstLicenseIssueDate }} </td>
+                <td>{{ driver.CloseTrip }}</td>
+                <td>{{ driver.DriverFatherName }}</td>
+                <td>{{ driver.VehicleNumber }}</td>
+                <td>{{ driver.PermanentCity }}</td>
+                <td>{{ driver.PermanentPincode }}</td>
+                <td>{{ driver.CurrentCity }}</td>
+                <td>{{ driver.CurrentPincode }}</td>
+                <td>{{ driver.GuarantorName }}</td>
+                <td>{{ driver.Status }}</td>
+                <td>{{ driver.DriverCategory }}</td>
+                <td>{{ driver.DOB }}</td>
+                <td>{{ driver.DOJ }}</td>
+                <td>{{ driver.Ethinicity }}</td>
+                <td>{{ driver.CurrentLicenseIssueDate }}</td>
+                <td>{{ driver.LicenseVerifiedDate }} </td>
+                <td>{{ driver.LicenseVerified }}</td>
+                <!-- <td>
+                    <span *ngIf="driver.LicenseVerified">
+                        <i class="pi pi-verified" style="color:green; font-size: 2rem;"></i>
+                    </span>
+                    <span *ngIf="!driver.LicenseVerified">
+                        <i class="pi pi-times" style="color:red; font-size: 2rem;"></i>
+                    </span>
+                </td> -->
+                <td>{{ driver.AddressVerified }}</td>
+                <!-- <td>
+                    <span *ngIf="driver.AddressVerified">
+                        <i class="pi pi-verified" style="color:green; font-size: 2rem;"></i>
+                    </span>
+                    <span *ngIf="!driver.AddressVerified">
+                        <i class="pi pi-times" style="color:red; font-size: 2rem;"></i>
+                    </span>
+                </td> -->
+                <td>
+                    <p-image [src]="driverImageUrl(driver.id)" alt="Driver Photo" width="50" height="50" [preview]="true"></p-image>
+                </td>
+                
+                <td>
+                    <p-image [src]="driverPanCardImageUrl(driver.id)" alt="Pan Card Photo" width="50" height="50" [preview]="true"></p-image>
+                </td>
+                
+                <td>
+                    <p-image [src]="driverVoterIdImageUrl(driver.id)" alt="Voter Id Photo" width="50" height="50" [preview]="true"></p-image>
+                </td>
+                
+                <td>
+                    <p-image [src]="driverAadharCardImageUrl(driver.id)" alt="Aadhar card Photo" width="50" height="50" [preview]="true"></p-image>
+                </td>
+                
+                <td>
+                    <p-image [src]="driverLicenseImageUrl(driver.id)" alt="License" width="50" height="50" [preview]="true"></p-image>
+                </td>
+
+                <td>{{ driver.created_at | date : "medium" }}</td>
+                <td>{{ driver.updated_at | date : "medium" }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

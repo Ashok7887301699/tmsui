@@ -1,0 +1,167 @@
+<p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+<div class="tenant-list-container">
+  <p-toast></p-toast>
+  <p-confirmDialog
+    header="Confirmation"
+    icon="pi pi-exclamation-triangle"></p-confirmDialog>
+  <!-- Filter Panel -->
+  <p-accordion>
+    <p-accordionTab header="Filters">
+      <div class="p-fluid filter-grid">
+        <!-- Vehicle Capacity Model Filter -->
+        <div class="filter-field1">
+          <span class="p-float-label p-input-icon-right">
+            <i class="pi pi-times" (click)="resetOneByOneFilters()" *ngIf="filters.vehcpctmodel"></i>
+            <input
+              type="text"
+              pInputText
+              id="vehcpctmodel"
+              [(ngModel)]="filters.vehcpctmodel"
+              (input)="applyFilters()" />
+            <label for="vehcpctmodel">Vehicle Capacity Model</label>
+          </span>
+        </div>
+
+       
+
+      <!-- Status Filter -->
+      <div class="filter-field1"> <span class="p-float-label">
+          <p-dropdown [options]="statusOptions" [(ngModel)]="filters.status" (onChange)="applyFilters()"
+            optionLabel="label" optionValue="value" [showClear]="true" id="Status"></p-dropdown>
+          <label for="Status">Status</label></span>
+      </div>
+
+      <!-- Created From Filter -->
+      <div class="filter-field1">
+        <div class="date-filter-container">
+          <span class="p-float-label">
+            <p-calendar id="createdFrom" [(ngModel)]="filters.created_from" (onSelect)="applyFilters()"
+              [showIcon]="true" [showClear]="true" (onClear)="resetOneByOneFilters()">
+            </p-calendar>
+            <label for="createdFrom">Created From</label>
+          </span>
+        </div>
+      </div>
+
+      <!-- Created To Date Filter -->
+      <div class="filter-field1">
+        <div class="date-filter-container">
+          <span class="p-float-label">
+            <p-calendar id="createdTo" [(ngModel)]="filters.created_to" (onSelect)="applyFilters()" [showIcon]="true"
+              [showClear]="true" (onClear)="resetOneByOneFilters()">
+            </p-calendar>
+            <label for="Status">Created To</label>
+          </span>
+        </div>
+      </div>
+
+      <!-- Updated From Date Filter -->
+      <div class="filter-field1">
+        <div class="date-filter-container">
+          <span class="p-float-label">
+            <p-calendar id="updatedFrom" [(ngModel)]="filters.updated_from" (onSelect)="applyFilters()"
+              [showIcon]="true" placeholder="Updated From" [showClear]="true"
+              (onClear)="resetOneByOneFilters()"></p-calendar>
+            <label for="Status">Updated From</label>
+          </span>
+        </div>
+      </div>
+
+      <!-- Updated From Date Filter -->
+      <div class="filter-field1">
+        <div class="date-filter-container">
+          <span class="p-float-label">
+            <p-calendar id="updatedTo" [(ngModel)]="filters.updated_to" (onSelect)="applyFilters()" [showIcon]="true"
+              placeholder="Updated To" [showClear]="true" (onClear)="resetOneByOneFilters()"></p-calendar>
+            <label for="Status">Updated To</label>
+          </span>
+        </div>
+      </div>
+
+      <!-- Sort By  Filter -->
+      <div class="filter-field1">
+        <span class="p-float-label">
+          <p-dropdown [options]="sortByOptions" [(ngModel)]="filters.sort_by" (onChange)="applyFilters()"
+            optionLabel="label" [showClear]="true" optionValue="value" id="SortBy"></p-dropdown>
+          <label for="sort_by">sort_by</label>
+        </span>
+      </div>
+
+      <!-- Sort Order Filter -->
+      <div class="filter-field1">
+        <span class="p-float-label">
+          <p-dropdown [options]="sortOrderOptions" [(ngModel)]="filters.sort_order" (onChange)="applyFilters()"
+            [showClear]="true" optionLabel="label" optionValue="value" id="sort_order"></p-dropdown>
+          <label for="sort_order">sort_order</label>
+        </span>
+      </div>
+
+      <!-- Reset All Filters  -->
+      <div class="filter-field1">
+        <div class="date-filter-container">
+          <button type="button" pButton label="Reset All Filters" (click)="resetAllFilters()"
+            icon="pi pi-refresh"></button>
+        </div>
+      </div>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+
+  <!-- Action icons for CRUD operations -->
+  <div class="action-icons">
+    <i class="pi pi-plus" (click)="createNewRecord()"></i>
+    <i class="pi pi-eye" (click)="viewRecord()"></i>
+    <i class="pi pi-pencil" (click)="editRecord()"></i>
+    <i class="pi pi-ban" (click)="deactivateRecord()"></i>
+    <i class="pi pi-trash" (click)="deleteRecord()"></i>
+  </div>
+
+  <!-- Search and Sort Filters -->
+  <div class="filters">
+    <!-- Add your search and sort filter inputs here -->
+    <!-- Example: <input type="text" pInputText placeholder="Search by name" (input)="applyFilters({name: $event.target.value})"> -->
+  </div>
+
+  <!-- vehiclecapacitymodel Table -->
+  <p-table
+    [value]="vehiclecapacitymodels"
+    [paginator]="true"
+    [rows]="10"
+    [totalRecords]="totalRecords"
+    [scrollable]="true"
+    scrollHeight="500px"
+    scrollWidth="100%"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    styleClass="p-datatable-gridlines"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="{first} to {last} of {totalRecords} records"
+    [lazy]="true"
+    [loading]="loading"
+    (onLazyLoad)="loadVehicleCapacityModels($event)"
+    selectionMode="single"
+    [(selection)]="selectedVehicleCapacityModelId"
+    (onRowSelect)="onRowSelect($event)">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Sr.No</th>
+        <th>Vehicle Model</th>
+        <th>Vehicle Capacity</th>
+        <th>Model Description</th>
+        <th>Status</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-vehiclecapacitymodel let-rowIndex="rowIndex">
+      <tr [pSelectableRow]="vehiclecapacitymodel">
+        <td>{{ rowIndex + 1 }}</td>
+        <td>{{ vehiclecapacitymodel.vehcpctmodel }}</td>
+        <td>{{ vehiclecapacitymodel.vehiclecpct }}</td>
+        <td>{{vehiclecapacitymodel.modeldesc}}</td>
+        <td>{{ vehiclecapacitymodel.status }}</td>
+        <td>{{ vehiclecapacitymodel.created_at | date : "medium" }}</td>
+        <td>{{ vehiclecapacitymodel.updated_at | date : "medium" }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

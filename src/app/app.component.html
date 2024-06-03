@@ -1,0 +1,13 @@
+<div *ngIf="!isAuthenticated" class="container">
+  <!-- Displaying the header component -->
+
+  <app-login-page-header></app-login-page-header>
+  <div class="content">
+    <app-login-card (signIn)="onSignIn($event)"></app-login-card>
+  </div>
+
+  <!-- Displaying the footer component -->
+  <app-login-page-footer></app-login-page-footer>
+</div>
+<!-- Router outlet for displaying routed components when authenticated -->
+<router-outlet *ngIf="isAuthenticated"></router-outlet>

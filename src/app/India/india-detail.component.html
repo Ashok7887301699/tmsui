@@ -1,0 +1,17 @@
+<!-- src/app/india/india-detail.component.html -->
+
+<div *ngIf="india">
+  
+    <h2>India Details</h2>
+    <p><strong>Id:</strong> {{ india.id }}</p>
+    <p><strong>Country:</strong> {{ india.Country }}</p>
+    <p><strong>State:</strong> {{ india.state }}</p>
+    <p><strong>District:</strong> {{ india.district }}</p>
+    <p><strong>Taluka:</strong> {{ india.taluka }}</p>
+    <p><strong>Postoffice:</strong> {{ india.postoffice }}</p>
+    <p><strong>Pincode:</strong> {{ india.post_pincode }}</p>
+    <p><strong>Status:</strong> {{ india.status }}</p>
+    <p><strong>Created At:</strong> {{ india.created_at | date }}</p>
+    <p><strong>Updated At:</strong> {{ india.updated_at | date }}</p>
+  </div>
+  

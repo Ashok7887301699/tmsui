@@ -1,0 +1,167 @@
+<p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+<div class="tenant-list-container">
+  <p-toast></p-toast>
+  <p-confirmDialog
+    header="Confirmation"
+    icon="pi pi-exclamation-triangle"></p-confirmDialog>
+  <!-- Filter Panel -->
+  <p-accordion>
+    <p-accordionTab header="Filters">
+      <div class="p-fluid filter-grid">
+        <!-- industrytype Filter -->
+        <div class="filter-field1">
+          <span class="p-float-label p-input-icon-right">
+            <i class="pi pi-times" (click)="resetOneByOneFilters()" *ngIf="filters.name"></i>
+            <input
+              type="text"
+              pInputText
+              id="name"
+              [(ngModel)]="filters.name"
+              (input)="applyFilters()" />
+            <label for="name">Industry Type</label>
+          </span>
+        </div>
+
+
+        <!-- Status Filter -->
+        <div class="filter-field1"> <span class="p-float-label">
+          <p-dropdown
+          [showClear]="true"
+            [options]="statusOptions"
+            [(ngModel)]="filters.status"
+            (onChange)="applyFilters()"
+            placeholder="Select a Status"
+            optionLabel="label"
+            optionValue="value"
+          ></p-dropdown>
+          <label  for="Status">Status</label></span>
+        </div>
+
+        <!-- Created From Date Filter -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar [showClear]="true" id="createdFrom" [(ngModel)]="filters.created_from" (onSelect)="applyFilters()"
+                [showIcon]="true" placeholder="Created From">
+              </p-calendar>
+              <label for="Status">Created From</label>
+            </span>
+          </div>
+        </div>
+
+        <!-- Created To Date Filter -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar [showClear]="true" id="createdTo" [(ngModel)]="filters.created_to" (onSelect)="applyFilters()" [showIcon]="true"
+                placeholder="Created To"></p-calendar>
+              <label for="Status">Created To</label>
+            </span>
+          </div>
+        </div>
+
+        <!-- Updated From Date Filter -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar [showClear]="true" id="updatedFrom" [(ngModel)]="filters.updated_from" (onSelect)="applyFilters()"
+                [showIcon]="true" placeholder="Updated From"></p-calendar>
+              <label for="Status">Updated From</label>
+            </span>
+          </div>
+        </div>
+
+        <!-- Updated From Date Filter -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar [showClear]="true" id="updatedTo" [(ngModel)]="filters.updated_to" (onSelect)="applyFilters()" [showIcon]="true"
+                placeholder="Updated To"></p-calendar>
+              <label for="Status">Updated To</label>
+            </span> 
+          </div>
+        </div>
+
+        <!-- Sort By  Filter
+        <div class="filter-field1">
+          <span class="p-float-label">
+            <p-dropdown [options]="sortByOptions" [(ngModel)]="filters.sort_by" (onChange)="applyFilters()"
+               [showClear]="true" optionLabel="label" optionValue="value" id="SortBy"></p-dropdown>
+            <label  for="sort_by">sort_by</label>
+          </span>
+        </div>
+
+        Sort Order Filter 
+        <div class="filter-field1">
+          <span class="p-float-label">
+            <p-dropdown [options]="sortOrderOptions" [(ngModel)]="filters.sort_order" (onChange)="applyFilters()"
+              [showClear]="true" optionLabel="label" optionValue="value" id="sort_order"></p-dropdown>
+            <label  for="sort_order">sort_order</label>
+          </span>
+        </div> -->
+        <!-- Reset All Filters  -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+              <button type="button" pButton label="Reset All Filters" (click)="resetAllFilters()" icon="pi pi-refresh"></button>
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+
+  <!-- Action icons for CRUD operations -->
+  <div class="action-icons">
+    <i class="pi pi-plus" (click)="createNewRecord()"></i>
+    <i class="pi pi-eye" (click)="viewRecord()"></i>
+    <i class="pi pi-pencil" (click)="editRecord()"></i>
+    <i class="pi pi-ban" (click)="deactivateRecord()"></i>
+    <i class="pi pi-trash" (click)="deleteRecord()"></i>
+  </div>
+
+  <!-- Search and Sort Filters -->
+  <div class="filters">
+    <!-- Add your search and sort filter inputs here -->
+    <!-- Example: <input type="text" pInputText placeholder="Search by name" (input)="applyFilters({name: $event.target.value})"> -->
+  </div>
+
+  <!-- industrytype Table -->
+  <p-table
+    [value]="industrytypes"
+    [paginator]="true"
+    [rows]="10"
+    [totalRecords]="totalRecords"
+    [scrollable]="true"
+    scrollHeight="500px"
+    scrollWidth="100%"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    styleClass="p-datatable-gridlines"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="{first} to {last} of {totalRecords} records"
+    [lazy]="true"
+    [loading]="loading"
+    (onLazyLoad)="loadIndustrytypes($event)"
+    selectionMode="single"
+    [(selection)]="selectedIndustryTypeId"
+    (onRowSelect)="onRowSelect($event)">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Sr.No</th>
+        <th>Industry Type</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-industrytype let-rowIndex="rowIndex">
+      <tr [pSelectableRow]="industrytype">
+        <td>{{ rowIndex + 1 }}</td>
+        <td>{{ industrytype.name }}</td>
+        <td>{{ industrytype.description }}</td>
+        <td>{{ industrytype.status }}</td>
+        <td>{{ industrytype.created_at | date : "medium" }}</td>
+        <td>{{ industrytype.updated_at | date : "medium" }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

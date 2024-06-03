@@ -1,0 +1,128 @@
+<p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<div *ngIf="currentStep === 0">
+  <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()">
+    <p-card>
+      <p-fieldset legend="Vendor Form">
+        <!-- Vendor Code -->
+        <div class="card flex flex-wrap gap-4 p-fluid">
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="VendorCode">Vendor Code</label>
+            <input type="text" id="VendorCode" formControlName="VendorCode" pInputText />
+          </div>
+          <!-- Add similar markup for other form fields -->
+          <!-- Vendor Name -->
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="VendorName">Vendor Name</label>
+            <input type="text" id="VendorName" formControlName="VendorName" pInputText />
+          </div>
+        </div>
+        <!-- Type and Address -->
+        <div class="card flex flex-wrap gap-4 p-fluid">
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="Type">Type</label>
+            <input type="text" id="Type" formControlName="Type" pInputText />
+          </div>
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="Address">Address</label>
+            <input type="text" id="Address" formControlName="Address" pInputText />
+          </div>
+        </div>
+        <!-- City and Depot -->
+        <div class="card flex flex-wrap gap-4 p-fluid">
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="City">City</label>
+            <input type="text" id="City" formControlName="City" pInputText />
+          </div>
+          <div class="flex-auto mb-42">
+            <label class="block mb-2 " for="Depot">Branch/Hub</label>
+            <input type="text" id="Depot" formControlName="Depot" pInputText />
+          </div>
+        </div>
+        <!-- Vehicle and Pincode -->
+        <div class="card flex flex-wrap gap-4 p-fluid">
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="Vehicle">Vehicle</label>
+            <input type="text" id="Vehicle" formControlName="Vehicle" pInputText />
+          </div>
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="Pincode">Pincode</label>
+            <input type="text" id="Pincode" formControlName="Pincode" pInputText />
+          </div>
+        </div>
+        <!-- Mobile No and Email -->
+        <div class="card flex flex-wrap gap-4 p-fluid">
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="Mobile_No">Mobile No</label>
+            <input type="text" id="Mobile_No" formControlName="Mobile_No" pInputText />
+          </div>
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="Email">Email</label>
+            <input type="text" id="Email" formControlName="Email" pInputText />
+          </div>
+        </div>
+        <!-- PAN No and GST No -->
+        <div class="card flex flex-wrap gap-4 p-fluid">
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="PAN_No">PAN No</label>
+            <input type="text" id="PAN_No" formControlName="PAN_No" pInputText />
+          </div>
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="GSTNO">GST No</label>
+            <input type="text" id="GSTNO" formControlName="GSTNO" pInputText />
+          </div>
+        </div>
+        <!-- Bank Name and Account No -->
+        <div class="card flex flex-wrap gap-4 p-fluid">
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="BankName">Bank Name</label>
+            <input type="text" id="BankName" formControlName="BankName" pInputText />
+          </div>
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="AccountNO">Account No</label>
+            <input type="text" id="AccountNO" formControlName="AccountNO" pInputText />
+          </div>
+        </div>
+        <div class="card flex flex-wrap gap-4 p-fluid">
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="IFSC">IFSC</label>
+            <input type="text" id="IFSC" formControlName="IFSC" pInputText />
+          </div>
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="Category">Category</label>
+            <input type="text" id="Category" formControlName="Category" pInputText />
+          </div>
+        </div>
+        <!-- U_Location and Status -->
+        <div class="card flex flex-wrap gap-4 p-fluid">
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="U_Location">U_Location</label>
+            <input type="text" id="U_Location" formControlName="U_Location" pInputText />
+          </div>
+          <div class="flex-auto mb-2">
+            <label class="block mb-2 " for="status">Status</label>
+            <p-dropdown id="status" [options]="statusOptions" formControlName="status" placeholder="Select a Status"
+              optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
+          </div>
+        </div>
+      </p-fieldset>
+      <p-footer>
+        <button type="button" pButton label="Cancel" (click)="cancel()" class="p-button-secondary mx-1"></button>
+        <button type="submit" pButton [label]="isEditMode ? 'Update' : 'Save'" [disabled]="!vendorForm.valid"></button>
+      </p-footer>
+    </p-card>
+  </form>
+</div>
+
+<!-- Step 2: Display Tenant Details or Error Message -->
+<div *ngIf="currentStep === 1">
+  <div *ngIf="operationSuccessful">
+    <app-vendor-detail [vendor]="createdOrEditedVendor"></app-vendor-detail>
+    <button type="button" pButton label="OK" (click)="resetFormAndNavigateBack()"></button>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+    <button type="button" pButton label="OK" (click)="currentStep = 0"></button>
+  </div>
+</div>

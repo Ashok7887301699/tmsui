@@ -1,0 +1,17 @@
+<div *ngIf="user">
+    <h2>User Details</h2>
+    <p><strong>Id:</strong> {{ user.id }}</p>
+    <p><strong>Tenant Id:</strong> {{ user.tenant_id }}</p>
+    <p><strong>Login Id:</strong> {{ user.login_id }}</p>
+    <p><strong>Email_id:</strong> {{ user.email_id }}</p>
+    <p><strong>Password:</strong> {{ user.password_hash }}</p>
+    <p><strong>Display Name:</strong> {{ user.displayname }}</p>
+    <p><strong>Profile Photo:</strong></p>
+    <img *ngIf="user.profile_pic_url" [src]="user.profile_pic_url" alt="Profile Photo" height="100px" width="80">
+    <p><strong>User Type:</strong> {{ user.user_type }}</p>
+    <p><strong>Role:</strong> {{ user.role_id }}</p>
+    <p><strong>Status:</strong> {{ user.status }}</p>
+    <p><strong>Created At:</strong> {{ user.created_at | date }}</p>
+    <p><strong>Updated At:</strong> {{ user.updated_at | date }}</p>
+  </div>
+  

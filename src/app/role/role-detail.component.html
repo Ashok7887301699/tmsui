@@ -1,0 +1,16 @@
+<div *ngIf="role">
+    <h2>Role Details</h2>
+    <p><strong>Id:</strong> {{ role.id }}</p>
+    <p><strong>Role Name:</strong> {{ role.name }}</p>
+    <p><strong>Description:</strong> {{ role.description }}</p>
+    <p><strong>Privileges:</strong></p>
+    <ul>
+        <li *ngFor="let privilege of role.appliedPrivileges">
+            {{ privilege.name }} - {{ privilege.description }}
+        </li>
+    </ul>
+    <p><strong>Status:</strong> {{ role.status }}</p>
+    <p><strong>Created At:</strong> {{ role.created_at | date}}</p>
+    <p><strong>Updated At:</strong> {{ role.updated_at | date}}</p>
+    
+</div>

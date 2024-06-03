@@ -1,0 +1,8 @@
+<ng-container *ngIf="paymenttype; else loading">
+  <app-contractpaymenttype-detail [paymenttype]="paymenttype"></app-contractpaymenttype-detail>
+  <!-- PrimeNG Button Component -->
+  <button type="button" pButton label="OK" (click)="goBack()"></button>
+</ng-container>
+<ng-template #loading>
+  <div class="p-grid p-align-center p-justify-center"></div>
+</ng-template>

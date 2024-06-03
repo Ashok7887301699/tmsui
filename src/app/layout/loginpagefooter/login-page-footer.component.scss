@@ -1,0 +1,18 @@
+.footer {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+
+  span {
+    letter-spacing: 0.175em;
+    color: grey;
+    font-size: 75%;
+  }
+
+  .logo {
+    height: 0.75em;
+    margin-left: 5px;
+  }
+}

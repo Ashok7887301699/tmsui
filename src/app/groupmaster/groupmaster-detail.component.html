@@ -1,0 +1,10 @@
+
+<div *ngIf="groupmaster">
+    <h2>Vehicle Capacity Model Details</h2>
+    <p><strong>Id:</strong> {{ groupmaster.id }}</p>
+    <p><strong>Vehicle Model:</strong> {{ groupmaster.groupcode }}</p>
+    <p><strong>Vehicle Capacity:</strong> {{ groupmaster.groupname }}</p>
+    <p><strong>Status:</strong> {{ groupmaster.status }}</p>
+    <p><strong>Created At:</strong> {{ groupmaster.created_at | date }}</p>
+    <p><strong>Updated At:</strong> {{ groupmaster.updated_at | date }}</p>
+  </div>

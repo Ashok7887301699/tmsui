@@ -1,0 +1,40 @@
+<div *ngIf="driver">
+    <h2> Driver Details </h2>
+    <p><strong> Id : </strong> {{ driver.id }}</p>
+    <p><strong> Driver Code : </strong> {{ driver.DriverCode }}</p>
+    <p><strong> Driver Name : </strong> {{ driver.FirstName }} {{ driver.MiddleName }} {{ driver.LastName }}</p>
+    <p><strong> SAP Id : </strong> {{ driver.SAPId }}</p>
+    <p><strong> Branch Code : </strong> {{ driver.BranchCode }}</p>
+    <p><strong> Location : </strong> {{ driver.Location }}</p>
+    <p><strong> Mobile Number : </strong> {{ driver.MobileNumber }}</p>
+    <p><strong> Permenant Address : </strong> {{ driver.PermanentAddress }}</p>
+    <p><strong> Current Address : </strong> {{ driver.CurrentAddress }}</p>
+    <p><strong> License Number : </strong> {{ driver.LicenseNumber }}</p>
+    <p><strong> License Validity Date : </strong> {{ driver.LicenseValidity }}</p>
+    <p><strong> IssuedByRTO : </strong> {{ driver.IssuedByRTO }}</p>
+    <p><strong> License Initial Issue Date : </strong>{{ driver.FirstLicenseIssueDate  }}</p>
+    <p><strong> Close Trip : </strong> {{ driver.CloseTrip }}</p>
+    <p><strong> DriverFatherName : </strong> {{ driver.DriverFatherName }}</p>
+    <p><strong> VehicleNo : </strong> {{ driver.VehicleNumber }}</p>
+    <p><strong> PemanantCity : </strong> {{ driver.PermanentCity }}</p>
+    <p><strong> Permanant Pincode : </strong> {{ driver.PermanentPincode }}</p>
+    <p><strong> Current City : </strong> {{ driver.CurrentCity }}</p>
+    <p><strong> Current Pincode : </strong> {{ driver.CurrentPincode }}</p>
+    <p><strong> Gaurantor Name : </strong> {{ driver.GuarantorName }}</p>
+    <!-- <p><strong> Status : </strong> {{ driver.Status }}</p> -->
+    <p><strong> Driver Category : </strong> {{ driver.DriverCategory }}</p>
+    <p><strong> DOB : </strong> {{ driver.DOB  }}</p>
+    <p><strong> DOJ : </strong> {{ driver.DOJ  }}</p>
+    <p><strong> Ethinicity : </strong> {{ driver.Ethinicity }}</p>
+    <p><strong> Licence Current Issue Date : </strong>{{ driver.CurrentLicenseIssueDate  }}</p>
+    <p><strong> Licence Verified Date : </strong> {{ driver.LicenseVerifiedDate  }}</p>
+    <p><strong> Licence Verified : </strong> {{ driver.LicenseVerified }}</p>
+    <p><strong> Address Verified : </strong> {{ driver.AddressVerified }}</p>
+    <p><strong> DriverPhoto : </strong> {{ driver.DriverPhoto }}</p>
+    <p><strong> PanCard : </strong> {{ driver.PanCard }}</p>
+    <p><strong> VoterId : </strong> {{ driver.VoterId }}</p>
+    <p><strong> AadharCard : </strong> {{ driver.AadharCard }}</p>
+    <p><strong> Licence : </strong> {{ driver.License }}</p>
+    <p><strong> Created At : </strong> {{ driver.created_at | date }}</p>
+    <p><strong> Updated At : </strong> {{ driver.updated_at | date }}</p>
+</div>

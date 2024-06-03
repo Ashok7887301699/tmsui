@@ -1,0 +1,262 @@
+<!-- <div *ngIf="vehicle">
+    <h2>Vehicle Details</h2>
+    <p><strong>Vehicle Type:</strong> {{ vehicle.VehicleType }}</p>
+    <p><strong>Vehicle Number:</strong> {{ vehicle.Vehicle_No }}</p>
+    <p><strong>Vendor Name:</strong> {{ vehicle.VendorName }}</p>
+    <p><strong>Vendor Type:</strong> {{ vehicle.VendorType }}</p>
+    <p><strong>Registration Date:</strong> {{ vehicle.RegDate }}</p>
+    <p><strong>Chassis Number:</strong> {{ vehicle.Chassis_No }}</p>
+    <p><strong>Engine Number:</strong> {{ vehicle.Engine_No }}</p>
+    <p><strong>Length:</strong> {{ vehicle.Length }}</p>
+    <p><strong>Width:</strong> {{ vehicle.Width }}</p>
+    <p><strong>Height:</strong> {{ vehicle.Height }}</p>
+    <p><strong>Capacity:</strong> {{ vehicle.Capacity }}</p>
+    <p><strong>GVW:</strong> {{ vehicle.GVW }}</p>
+    <p><strong>Attached Date:</strong> {{ vehicle.AttachedDate }}</p>
+    <p><strong>Insurance Validity:</strong> {{ vehicle.Insurance_Validity }}</p>
+    <p><strong>Fitness Validity:</strong> {{ vehicle.Fitness_Validity }}</p>
+    <p><strong>Permit Validity:</strong> {{ vehicle.Permit_validity }}</p>
+    <p><strong>Certificate Number:</strong> {{ vehicle.CertNo }}</p>
+    <p><strong>Insurance Number:</strong> {{ vehicle.InsuranceNo }}</p>
+    <p><strong>RTO Number:</strong> {{ vehicle.RTONo }}</p>
+    <p><strong>Close Trip:</strong> {{ vehicle.CloseTrip }}</p>
+    <p><strong>Controlling Branch:</strong> {{ vehicle.ControllingBranch }}</p>
+    <p><strong>Asset Type:</strong> {{ vehicle.AssetType }}</p>
+    <p><strong>Number of Drivers:</strong> {{ vehicle.NoOfDrivers }}</p>
+    <p><strong>GPS Device Enabled:</strong> {{ vehicle.GPSDeviceEnabled }}</p>
+    <p><strong>Permit States:</strong> {{ vehicle.PermitStates }}</p>
+    <p><strong>FTL Type:</strong> {{ vehicle.FTLType }}</p>
+    <p><strong>Vehicle Broker:</strong> {{ vehicle.VehicleBroker }}</p>
+    <p><strong>Number of Tyres:</strong> {{ vehicle.NoOfTyres }}</p>
+    <p><strong>RC Book Number:</strong> {{ vehicle.RCBookNo }}</p>
+    <p><strong>Registration Number:</strong> {{ vehicle.RegistrationNo }}</p>
+    <p><strong>Insurance Company:</strong> {{ vehicle.InsuranceCompany }}</p>
+    <p><strong>Fitness Certificate Date:</strong> {{ vehicle.FitnessCertificateDate }}</p>
+    <p><strong>Rate Km:</strong> {{ vehicle.RateKm }}</p>
+    <p><strong>Active Flag:</strong> {{ vehicle.ActiveFlag }}</p>
+    <p><strong>CFT:</strong> {{ vehicle.CFT }}</p>
+    <p><strong>Tax Validity Date:</strong> {{ vehicle.Tax_validdate }}</p>
+    <p><strong>PUCC Validity:</strong> {{ vehicle.PUCC_Valid }}</p>
+    <p><strong>Fitness Validity Date:</strong> {{ vehicle.Fittness_Validdate }}</p>
+    <p><strong>Mileage KM:</strong> {{ vehicle.MilageKM }}</p>
+    <p><strong>Per KM Rate:</strong> {{ vehicle.PerKmRate1 }}</p>
+    <p><strong>Mileage:</strong> {{ vehicle.Milage }}</p>
+    <p><strong>Fuel Tank Capacity:</strong> {{ vehicle.FuelTankCapacity }}</p>
+    <p><strong>Created At:</strong> {{ vehicle.created_at | date }}</p>
+    <p><strong>Updated At:</strong> {{ vehicle.updated_at | date }}</p>
+</div>
+ 
+   -->
+
+   <div *ngIf="vehicle" class="customer-details">
+    <div class="header">
+      <h2>Vehicle Details</h2>
+    </div>
+    <div class="content">
+      <div class="detail-item">
+        <div class="label">SrNo:</div>
+        <div class="value">{{ vehicle.SrNo }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Vehicle Make:</div>
+        <div class="value">{{ vehicle.VehicleMake }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Model:</div>
+        <div class="value">{{ vehicle.Model }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Vehicle Number:</div>
+        <div class="value">{{ vehicle.Vehicle_No }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Vendor Name:</div>
+        <div class="value">{{ vehicle.VendorName }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Vendor Type:</div>
+        <div class="value">{{ vehicle.VendorType }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Depot:</div>
+        <div class="value">{{ vehicle.Depot }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Payload:</div>
+        <div class="value">{{ vehicle.Payload }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">GVW:</div>
+        <div class="value">{{ vehicle.GVW }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Length:</div>
+        <div class="value">{{ vehicle.Length }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Width:</div>
+        <div class="value">{{ vehicle.Width }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Height:</div>
+        <div class="value">{{ vehicle.Height }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">RC Book No:</div>
+        <div class="value">{{ vehicle.RCBookNo }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">RC Validity:</div>
+        <div class="value">{{ vehicle.RC_Validity }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Registration Date:</div>
+        <div class="value">{{ vehicle.RegDate }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Registration Number:</div>
+        <div class="value">{{ vehicle.RegistrationNo }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Insurance Number:</div>
+        <div class="value">{{ vehicle.InsuranceNo }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Insurance Validity:</div>
+        <div class="value">{{ vehicle.Insurance_Validity }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Attached Date:</div>
+        <div class="value">{{ vehicle.AttachedDate }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Fitness Validity:</div>
+        <div class="value">{{ vehicle.Fitness_Validity }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Permit Validity:</div>
+        <div class="value">{{ vehicle.Permit_validity }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Tax Validity:</div>
+        <div class="value">{{ vehicle.Tax_validdity }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Tax Status:</div>
+        <div class="value">{{ vehicle.TaxStatus }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">PUCC Validity:</div>
+        <div class="value">{{ vehicle.PUCC_Validity }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Chassis Number:</div>
+        <div class="value">{{ vehicle.Chassis_No }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Engine Number:</div>
+        <div class="value">{{ vehicle.Engine_No }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Fuel Tank Capacity:</div>
+        <div class="value">{{ vehicle.FuelTankCapacity }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">GPS Device Enabled:</div>
+        <div class="value">{{ vehicle.GPSDeviceEnabled }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Permit States:</div>
+        <div class="value">{{ vehicle.PermitStates }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Number of Tyres:</div>
+        <div class="value">{{ vehicle.NoOfTyres }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">FTL Type:</div>
+        <div class="value">{{ vehicle.FTLType }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Rate per Kilometer:</div>
+        <div class="value">{{ vehicle.RateKm }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Standard Milage Km Per Ltr:</div>
+        <div class="value">{{ vehicle.StandardMilageKmPerLtr }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Controlling Branch:</div>
+        <div class="value">{{ vehicle.ControllingBranch }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Capacity:</div>
+        <div class="value">{{ vehicle.Capacity }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Unloaded Weight:</div>
+        <div class="value">{{ vehicle.UnloadedWeight }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Vehicle Broker:</div>
+        <div class="value">{{ vehicle.VehicleBroker }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Insurance Company:</div>
+        <div class="value">{{ vehicle.InsuranceCompany }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Fitness Certificate Date:</div>
+        <div class="value">{{ vehicle.FitnessCertificateDate }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Certification Number:</div>
+        <div class="value">{{ vehicle.CertNo }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">RTO Number:</div>
+        <div class="value">{{ vehicle.RTONo }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Upload RC:</div>
+        <div class="value">{{ vehicle.UploadRc }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Upload Insurance:</div>
+        <div class="value">{{ vehicle.UploadInsuarance }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Upload Permit:</div>
+        <div class="value">{{ vehicle.UploadPermit }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Upload PUC:</div>
+        <div class="value">{{ vehicle.UploadPUC }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Permit Number:</div>
+        <div class="value">{{ vehicle.Permit_No }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Fitness Number:</div>
+        <div class="value">{{ vehicle.Fitness_No }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Close Trip:</div>
+        <div class="value">{{ vehicle.CloseTrip }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Active Flag:</div>
+        <div class="value">{{ vehicle.ActiveFlag }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Milage KM:</div>
+        <div class="value">{{ vehicle.MilageKM }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Milage:</div>
+        <div class="value">{{ vehicle.Milage }}</div>
+      </div>
+    </div>
+  </div>
+  

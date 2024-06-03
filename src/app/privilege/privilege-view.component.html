@@ -1,0 +1,8 @@
+<ng-container *ngIf="privilege; else loading">
+    <app-privilege-detail [privilege]="privilege"></app-privilege-detail>
+    <!-- PrimeNG Button Component -->
+    <button type="button" pButton label="OK" (click)="goBack()"></button>
+  </ng-container>
+  <ng-template #loading>
+  </ng-template>
+  

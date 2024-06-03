@@ -1,0 +1,8 @@
+<ng-container *ngIf="groupmaster; else loading">
+    <app-groupmaster-detail [groupmaster]="groupmaster"></app-groupmaster-detail>
+    <!-- PrimeNG Button Component -->
+    <button type="button" pButton label="OK" (click)="goBack()"></button>
+  </ng-container>
+  <ng-template #loading>
+  </ng-template>
+  

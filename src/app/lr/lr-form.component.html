@@ -1,0 +1,479 @@
+<p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps>
+<p-toast></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<!-- Step 1: Tenant Form -->
+<div *ngIf="currentStep === 0">
+  <form [formGroup]="lrForm" >
+    <p-card>
+      <p-fieldset legend="LR Details">
+        <div class=" card flex flex-wrap gap-4 p-fluid mb-2 grid formgrid">
+
+            <!-- <div class="flex-auto filter-field">
+            <label class="block mb-2" for="PayType">PayType</label>
+            <p-dropdown id="PayType" [options]="PayTypeOptions" formControlName="payment_type"
+                        placeholder="Select PayType" optionLabel="label" optionValue="value" [showClear]="true"
+                        (onChange)="onPayTypeChange($event)"></p-dropdown>
+          </div> -->
+          <div class="flex-auto filter-field">
+            <label class="block mb-2" for="PayType">PayType</label>
+            <p-dropdown id="PayType" [options]="PayTypeOptions" formControlName="payment_type"
+                        placeholder="Select PayType" optionLabel="label" optionValue="value" [showClear]="true"
+                        (onChange)="onPayTypeChange($event)" [(ngModel)]="selectedPayType"></p-dropdown>
+          </div>
+         
+          <div class="flex-auto filter-field">
+            <label for="consignor_id">Contract Party</label>
+            <p-autoComplete [suggestions]="suggestions" formControlName="consignor_id" id="consignor_id"
+                            class="p-inputtext-sm" placeholder="Consignor Id" (completeMethod)="search($event, selectedPayType)"   (onSelect)="onContractPartySelect($event)" (onSelect)="onContractPartySelectfromMaster($event)">
+            </p-autoComplete>
+          </div>
+
+          <div class="flex-auto filter-field">
+            <label for="consignor_name">Contract Party</label>
+
+            <input type="text" formControlName="consignor_name" placeholder="Consignor Name" id="consignor_name"
+              class="p-inputtext-sm" pInputText >
+          </div> 
+        </div>
+
+        <div class=" card flex flex-wrap gap-4 p-fluid mb-2 grid formgrid">
+
+          <!-- <div class="flex-auto filter-field">
+            <label for="truck_load_type">Service Type</label>
+            <p-dropdown formControlName="truck_load_type" id="truck_load_type" [options]="serviceTypeOptions"
+              class="p-inputtext-sm" optionLabel="label" [showClear]="true"></p-dropdown>
+          </div> -->
+          
+          <div class="flex-auto filter-field">
+            <label class="block mb-2" for="truck_load_type">Service Type</label>
+            <p-dropdown id="truck_load_type" [options]="truck_load_typeOptions" formControlName="truck_load_type"
+                        placeholder="Select truck_load_type" optionLabel="label" optionValue="value" [showClear]="true"
+                        (onChange)="ontruck_load_typeChange($event)"></p-dropdown>
+          </div>
+          <div class="flex-auto filter-field">
+            <label for="del_speed">Mode of Transport</label>
+            <p-dropdown id="del_speed" formControlName="del_speed" [options]="ModeOfTransport" class="p-inputtext-sm"
+            optionLabel="label" optionValue="value" [showClear]="true" placeholder=""></p-dropdown>
+          </div>
+          <!-- <div class="flex-auto filter-field">
+            <label for="pickup_del_type"> Pickup/Delivery</label>
+            <p-dropdown formControlName="pickup_del_type" id="pickup_del_type" [options]="servicePickupdelivery"
+              class="p-inputtext-sm" optionLabel="label" [showClear]="true" placeholder="Pickup/Delivery"></p-dropdown>
+          </div> -->
+
+          <div class="flex-auto filter-field">
+            <label class="block mb-2" for="pickup_del_type">Pickup/Delivery</label>
+            <p-dropdown id="pickup_del_type" [options]="pickup_del_typeOptions" formControlName="pickup_del_type"
+                        placeholder="Select pickup_del_type" optionLabel="label" optionValue="value" [showClear]="true"
+                        (onChange)="onpickup_del_typeChange($event)"></p-dropdown>
+          </div>
+        </div>
+        <div class=" card flex flex-wrap gap-4 p-fluid mb-2 grid formgrid">
+
+          <div class="flex-auto filter-field">
+            <label for="from_place">From City:</label>
+            <!-- <input type="text" formControlName="from_place" id="from_place" class="p-inputtext-sm" pInputText placeholder="Default"> -->
+            <p-autoComplete [suggestions]="suggestions" optionLabel="label" optionValue="value" formControlName="from_place" id="from_place"
+              class="p-inputtext-sm" (completeMethod)="searchcity($event)"></p-autoComplete>
+          </div>
+          <div class="flex-auto filter-field">
+            <label for="to_place">To City:</label>
+            <!-- <input type="text" formControlName="to_place" id="to_place"  class="p-inputtext-sm" pInputText placeholder="Default"> -->
+            <p-autoComplete [suggestions]="suggestions" optionLabel="label" optionValue="value" formControlName="to_place" id="to_place" class="p-inputtext-sm"
+              (completeMethod)="searchtocity($event)"></p-autoComplete>
+
+          </div>
+
+        </div>
+        <hr>
+        <!-- today start -->
+        <div class="grid formgrid">
+          <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+            <b><label>Consignor<span style="color: red;">*</span></label></b>
+          </div>
+          <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+            <label for="fmaster">From Master</label>
+            <input type="text" formControlName="fmaster" id="fmaster" class="p-inputtext-sm" pInputText
+              placeholder="Default" [(ngModel)]="selectedConsignorValue" readonly>
+          </div>
+          <!-- <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+            <label for="tmaster"></label><br>
+            <input type="text" formControlName="tmaster" id="tmaster" class="p-inputtext-sm" pInputText
+              placeholder="Default" >
+
+          </div> -->
+
+
+        </div>
+        <hr>
+        <div class="grid formgrid" *ngIf="selectedPayType !== 'TBB'">
+          <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+            <b><label>WalkIn<span style="color: red;">*</span></label></b>
+          </div>
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+            <label for="wcon_name">Name</label>
+            <input type="text" formControlName="wcon_name" id="wcon_name" class="p-inputtext-sm" pInputText
+              placeholder="Consignor Name">
+
+
+          </div>
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+
+            <label for="conadd">Address</label>
+            <input type="text" formControlName="conadd" id="conadd" class="p-inputtext-sm" pInputText
+              placeholder="Consignor Address">
+          </div>
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+            <label for="gstno">GST No</label>
+            <input type="text" formControlName="gstno" id="gstno" class="p-inputtext-sm" pInputText
+              placeholder="Consignor GSTNO">
+
+          </div>
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+            <label for="MobileNo">Mobile No</label>
+            <input type="text" formControlName="MobileNo" id="MobileNo" class="p-inputtext-sm" pInputText
+              placeholder="Consignor Mobile ">
+
+          </div>
+
+
+        </div>
+        <hr>
+        <div class="grid formgrid">
+          <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+            <b><label>Consignee<span style="color: red;">*</span></label></b>
+          </div>
+          <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+
+            <label for="from_place_con">From Master</label>
+            <input type="text" formControlName="from_place_con" id="from_place_con" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+          <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+            <label for="to_place_con"></label><br>
+            <input type="text" formControlName="to_place_con" id="to_place_con" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+
+          </div>
+
+        </div>
+        <hr>
+        <div class="grid formgrid">
+          <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+            <b><label>WalkIn<span style="color: red;">*</span></label></b>
+          </div>
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+            <label for="con_name">Name</label>
+            <input type="text" formControlName="con_name" id="con_name" class="p-inputtext-sm" pInputText
+              placeholder="Consignee Name">
+
+
+          </div>
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+
+            <label for="Address_con">Address</label>
+            <input type="text" formControlName="Address_con" id="Address_con" class="p-inputtext-sm" pInputText
+              placeholder="Consignee Address">
+
+
+          </div>
+
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+            <label for="gstno_con">GST No</label>
+            <input type="text" formControlName="gstno_con" id="gstno_con" class="p-inputtext-sm" pInputText
+              placeholder="Consignee GSTNO">
+
+          </div>
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+            <label for="MobileNo_con">Mobile No</label>
+            <input type="text" formControlName="MobileNo_con" id="MobileNo_con" class="p-inputtext-sm" pInputText
+              placeholder="Consignee Mobile">
+
+
+          </div>
+
+        </div>
+        <hr>
+        <!-- today end -->
+
+        <!-- end -->
+
+        <!-- table start -->
+        <div class="p-field">
+          <div class="table" id="createlr" style="display:block;">
+            <table id="invtab" class="table table-striped">
+              <thead class="table-primary">
+                <tr>
+                  <th>Invoice No</th>
+                  <th>Invoice Date</th>
+                  <th>Packaging Type</th>
+                  <th>Product Type</th>
+                  <th>Invoice Gross Value</th>
+                  <th>No of Pkgs.</th>
+                  <!-- Hidden columns -->
+                  <th style="display:none;">Length (inch)</th>
+                  <th style="display:none;">Width (inch)</th>
+                  <th style="display:none;">Height (inch)</th>
+                  <th style="display:none;">Actual Weight/Pkg (inch)</th>
+                  <th style="display:none;">Actual Weight (inch)</th>
+                  <!-- End of Hidden columns -->
+                  <th>Actual Weight(pkg)</th>
+                  <th>Actual Weight</th>
+                  <th>Excess Rate (In Rs.)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of items; let i = index">
+                  <td><input type="text" formControlName="Invoiceno" id="Invoiceno" pInputText size="10"></td>
+                  <td><input type="date" formControlName="Invoicedate" id="Invoicedate" pInputText size="10"></td>
+                  <td>
+                    <p-dropdown [options]="PackageTypeOptions" [showClear]="true" formControlName="Packaging_type"
+                      id="Packaging_type" class="p-inputtext-sm" optionLabel="label" optionValue="value"
+                      placeholder="Select a Packaging Type"></p-dropdown>
+                  </td>
+                  <td>
+                    <p-dropdown [options]="ProductTypeOptions" [showClear]="true" formControlName="Product_type"
+                      id="Product_type" class="p-inputtext-sm" optionLabel="label" optionValue="value"
+                      placeholder="Select a Product Type"></p-dropdown>
+                  </td>
+                  <td>
+                    <input type="text" id="Invoicegrossval{{i}}" [(ngModel)]="item.invoicegrossval"  [ngModelOptions]="{standalone: true}" pInputText size="10">
+                  </td>
+                  <td>
+                    <input type="text" id="Invoicenoofpkg{{i}}" [(ngModel)]="item.Invoicenoofpkg"   pInputText size="10" [ngModelOptions]="{standalone: true}">
+                  </td>
+                  
+                  <td><input type="text" class="p-inputtext-sm" formControlName="noofpkg" id="noofpkg" pInputText 
+                      size="10"></td>
+                  
+                  <td style="display:none;"><input type="text" formControlName="akcwtperpkg" id="akcwtperpkg"
+                      class="p-inputtext-sm" pInputText size="5"></td>
+
+                      <td>
+                    <input type="text" id="Invoiceperpkg{{i}}" [(ngModel)]="item.Invoicenoofpkg"  (change)="updateTotalperpkg()" pInputText size="10">
+                  </td>
+                  <!-- <td style="display:none;"><input type="text" formControlName="akcwt" id="akcwt" class="p-inputtext-sm"
+                      pInputText size="5"></td> -->
+                  <td style="display:none;"><input type="text" formControlName="exeesrate" id="exeesrate"
+                      class="p-inputtext-sm" pInputText size="5"></td>
+                  <!-- <td style="display:none;"><input type="text" class="p-inputtext-sm" pInputText size="5"></td> -->
+                  <td style="display:none;"><input type="text" class="p-inputtext-sm" pInputText size="5"></td>
+                  <!-- End of Hidden columns -->
+                  <td><input type="text" pInputText size="4"></td>
+                  <!-- <td><input type="text" pInputText size="4"></td> -->
+                  <!-- <td><input type="text" pInputText size="10"></td> -->
+                  <td>
+                    <button pButton type="button" icon="pi pi-trash" class="btn btn-outline-dark btn-fw"
+                      (click)="deleteRow(i, item)"></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td>
+                    <input type="text" id="invgrosstotal" [value]="totalGross" pInputText size="10" readonly>
+                  </td>
+                  <td>
+                    <input type="text" id="invgrossnoofpkg" [value]="totalnoofpkg" pInputText size="10" (change)="updateTotalPkgsNo()" >
+                  </td>
+                  <!-- <td><input type="text" pInputText size="10" readonly></td> -->
+                  <!-- Hidden columns -->
+                  <!-- <td style="display:none;"><input type="text" pInputText size="10"></td> -->
+                  <td></td>
+                  <td>
+                    <input type="text" id="invgrossperpkg" [value]="totalperpkg" pInputText size="10" readonly>
+                  </td>
+                  <!-- <td><input type="text" pInputText size="10"></td> -->
+                  <td></td>
+                  <!-- End of Hidden columns -->
+                  <td>
+                    <button pButton type="button" icon="pi pi-plus" class="btn btn-outline-dark btn-fw"
+                      (click)="addRow()"></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+        <!-- end table -->
+
+
+
+        <!-- str -->
+        <div class="grid formgrid">
+          <div class="col-12 mb-2 lg:col-7 lg:mb-0">
+            <label for="ewaybill">E-Way Bill No</label>
+            <input type="text" formControlName="ewaybill" id="ewaybill" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0"><br>
+            <label for="checkinc">Insurence :</label>
+            <input type="checkbox" formControlName="checkinc" id="checkinc">
+          </div>
+          <div class="col-12 mb-2 lg:col-3 lg:mb-0"><br>
+            <label for="checkcod">COD:</label>
+            <input type="checkbox" formControlName="checkcod" id="checkcod">
+          </div>
+
+        </div>
+        <div class="grid formgrid">
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+            <label for="frtrate">Freight Rate</label>
+            <input type="text" formControlName="frtrate" id="frtrate" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0"><br>
+            <p-dropdown id="input1" [options]="RateTypeOptions"  optionLabel="label" optionValue="value" formControlName="freight_rate_type" id="freight_rate_type" class="p-inputtext-sm" optionLabel="label"
+              [showClear]="true" placeholder="RateType"></p-dropdown>
+          </div>
+          <!-- <div class="flex-auto filter-field">
+            <label class="block mb-2" for="ratetype">Service Type</label>
+            <p-dropdown id="ratetype" [options]="RateTypeOptions" formControlName="ratetype"
+                        placeholder="Select ratetype" optionLabel="label" optionValue="value" [showClear]="true"
+                        (onChange)="onratetypeChange($event)"></p-dropdown>
+          </div> -->
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0"><br>
+            <p-dropdown id="input1" [options]="PaidTypeOptions" class="p-inputtext-sm" optionLabel="label"
+              [showClear]="true" placeholder="PaidType"></p-dropdown>
+          </div>
+          <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+            <label for="frtcharge">Freight Charge:</label>
+            <input type="text" formControlName="frtcharge" id="frtcharge" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+          <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+            <label for="inscharge">Insurance Charge:</label>
+            <input type="text" formControlName="inscharge" id="inscharge" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+        </div>
+        <div class="grid formgrid">
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+            <label for="codcharge">COD Charge:</label>
+            <input type="text" formControlName="codcharge" id="codcharge" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+            <label for="doccharge">Doc Charges:</label>
+            <input type="text" formControlName="doccharge" id="doccharge" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+          <div class="col-12 mb-2 lg:col-2 lg:mb-0">
+            <label for="hamalicharge">Hamali Charges:</label>
+            <input type="text" formControlName="hamalicharge" id="hamalicharge" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+          <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+            <label for="excescharge">Excess Wt Charges</label>
+            <input type="text" formControlName="excescharge" id="excescharge" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+          <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+            <label for="doorcharge">Door Del.Charges:</label>
+            <input type="text" formControlName="doorcharge" id="doorcharge" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+        </div>
+        <div class="grid formgrid">
+          <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+            <label for="gstcharge">GST Amount:</label>
+            <input type="text" formControlName="gstcharge" id="gstcharge" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+          <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+            <label for="odacharge">ODI Charges:</label>
+            <input type="text" formControlName="odacharge" id="odacharge" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+          <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+            <label for="grandtot">Grand Total:</label>
+            <input type="text" formControlName="grandtot" id="grandtot" class="p-inputtext-sm" pInputText
+              placeholder="Default">
+          </div>
+
+        </div>
+
+        <button pButton pRipple label="Creat Lr"  (click)="onSubmit()" class="p-button-success"></button>
+        <div class="card flex justify-content-center" >
+          <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show" *ngif="showdialog11"></p-button>
+          <p-dialog header="LR show" [(visible)]="visible" [style]="{width: '50vw'}">
+            <p style="font-family: Arial, sans-serif; font-size: 30px; color: black; font-weight: bold;text-align: center;">
+              {{ 'LR created successfully.' }}
+            </p>
+            <p style="font-family: Arial, sans-serif; font-size: 26px; color: green; font-weight: bold;text-align: center;">
+              {{ ' LR Number:-' + lrNumber }}
+            </p>
+          </p-dialog>
+        </div>
+        
+        
+      </p-fieldset>
+
+    </p-card>
+  </form>
+
+</div>
+
+<!-- Step 2: Display Tenant Details or Error Message -->
+<div *ngIf="currentStep === 1">
+  <div *ngIf="operationSuccessful">
+    <!-- <app-drs-detail [drs]="createdOrEditedDrs"></app-drs-detail> -->
+    <button type="button" pButton label="OK" (click)="resetFormAndNavigateBack()"></button>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+    <button type="button" pButton label="OK" (click)="currentStep = 0"></button>
+  </div>
+</div>
+
+<style>
+  /* Media query for medium screens and above */
+  @media screen and (min-width: 768px) {
+    .p-col {
+      flex: 1 0 50%;
+      /* Take half width on medium screens and above */
+    }
+  }
+
+  .table {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    /* Adjust margin as needed */
+  }
+
+  /* CSS for table */
+  #invtab {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  #invtab th,
+  #invtab td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+    /* Border color */
+  }
+
+  /* CSS for table header */
+  #invtab thead th {
+    background-color: #f2f2f2;
+    /* Header background color */
+  }
+
+  /* CSS for alternating row colors */
+  #invtab tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+    /* Even row background color */
+  }
+
+  /* CSS for input fields */
+  input[type="text"],
+  input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+</style>

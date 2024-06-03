@@ -1,0 +1,13 @@
+<!-- src/app/producttype/producttype-detail.component.html -->
+
+<div *ngIf="privilege">
+    <h2>Privilege Details</h2>
+    <p><strong>Id:</strong> {{ privilege.id }}</p>
+    <p><strong>Privilege Name:</strong> {{ privilege.name }}</p>
+    <p><strong>Description:</strong> {{ privilege.description }}</p>
+    <p><strong>Status:</strong> {{ privilege.status }}</p>
+    <p><strong>Created At:</strong> {{ privilege.created_at | date}}</p>
+    <p><strong>Updated At:</strong> {{ privilege.updated_at | date}}</p>
+
+  </div>
+  

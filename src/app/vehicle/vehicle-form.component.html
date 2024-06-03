@@ -1,0 +1,485 @@
+<!-- <h3>customer-detail</h3> -->
+
+<!-- Import PrimeNG Steps and Messages components in your component template -->
+<p-steps
+  [model]="steps"
+  [(activeIndex)]="currentStep"
+  [readonly]="false"
+></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<!-- Step 1: Tenant Form -->
+<div *ngIf="currentStep === 0">
+  <!-- Form layout using PrimeNG components -->
+  <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+    <p-card>
+      <p-fieldset legend="Vehicle Details">
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <!-- First row of input fields -->
+            <!-- <div class="flex-auto">
+              <label class="block font-bold mb-2" for="VehicleType">VehicleType</label>
+              <input type="text" id="VehicleType" formControlName="VehicleType" pInputText  />
+            </div> -->
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="VehicleMake">VehicleMake</label>
+              <input type="text" id="VehicleMake" formControlName="VehicleMake" pInputText />
+            </div>
+
+            <div class="flex-auto col-2">
+              <label class="block font-bold mb-2" for="Model">Model</label>
+              <p-dropdown [options]="VehicleTypeOptions" formControlName="Model" optionLabel="label" optionValue="value" placeholder="Select a Model"></p-dropdown>
+            </div>
+            
+
+           
+            
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="Vehicle_No">Vehicle_No</label>
+              <input type="text" id="Vehicle_No" formControlName="Vehicle_No" pInputText />
+            </div>
+
+            <!-- <div class="flex-auto">
+              <label class="block font-bold mb-2" for="AssetType">AssetType</label>
+              <input type="text" id="AssetType" formControlName="AssetType" pInputText />
+            </div> -->
+
+            <!-- <div class="flex-auto">
+              <label class="block font-bold mb-2" for="AssetType">AssetType</label>
+              <p-dropdown
+                id="AssetType"
+                [options]="AssetOptions"
+                formControlName="AssetType"
+                placeholder="Select a AssetType"
+                optionLabel="label"
+                optionValue="value"
+                [showClear]="true"
+              ></p-dropdown>
+            </div> -->
+
+           
+          </div>
+          
+
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <!-- Sixth row of input fields -->
+           
+            <!-- <div class="flex-auto">
+              <label class="block font-bold mb-2" for="VendorType">VendorType</label>
+              <p-dropdown
+                id="VendorType"
+                [options]="VendorTypeOptions"
+                formControlName="VendorType"
+                placeholder="Select a VendorType"
+                optionLabel="label"
+                optionValue="value"
+                [showClear]="true"
+              ></p-dropdown>
+            </div>
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="VendorName">VendorName</label>
+              <p-dropdown
+                id="VendorName"
+                [options]="VendorNameOptions"
+                formControlName="VendorName"
+                placeholder="Select a VendorName"
+                optionLabel="label"
+                optionValue="value"
+                [showClear]="true"
+              ></p-dropdown>
+            </div> -->
+
+
+            <!-- <div class="flex-auto gap-4 ">
+              <label class="block font-bold mb-2" for="VendorType">VendorType</label>
+              <input type="text" id="VendorType" formControlName="VendorType" pInputText />
+            </div> -->
+
+            <!-- <div class="flex-auto">
+              <label class="block font-bold mb-2" for="VendorName">VendorName</label>
+              <input type="text" id="VendorName" formControlName="VendorName" pInputText />
+            </div> -->
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="ControllingBranch">ControllingBranch</label>
+              <input type="text" id="ControllingBranch" formControlName="ControllingBranch" pInputText />
+            </div>
+
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="Payload">Payload</label>
+                <input type="text" id="Payload" formControlName="Payload" pInputText />
+              </div>
+  
+
+              
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="PermitStates">PermitStates</label>
+                <input type="text" id="PermitStates" formControlName="PermitStates" pInputText />
+              </div>
+
+  
+          </div>
+
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <!-- <div class="flex-auto">
+              <label class="block font-bold mb-2" for="FTLType">FTLType</label>
+              <input type="text" id="FTLType" formControlName="FTLType" pInputText />
+            </div> -->
+
+            <div class="flex-auto col-2">
+              <label class="block font-bold mb-2" for="FTLType">FTLType</label>
+              <p-dropdown [options]="FTLTypeOptions" formControlName="FTLType" optionLabel="label" optionValue="value" placeholder="Select a FTLType"></p-dropdown>
+            </div>
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="NoOfTyres">NoOfTyres</label>
+              <input type="text" id="NoOfTyres" formControlName="NoOfTyres" pInputText />
+            </div>
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="VehicleBroker">VehicleBroker</label>
+              <input type="text" id="VehicleBroker" formControlName="VehicleBroker" pInputText />
+            </div>
+
+            
+            <!-- <div class="flex-auto">
+              <label class="block font-bold mb-2" for="GPSDeviceEnabled">GPSDeviceEnabled</label>
+              <input type="text" id="GPSDeviceEnabled" formControlName="GPSDeviceEnabled" pInputText />
+            </div> -->
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="GPSDeviceEnabled">GPSDeviceEnabled</label>
+              <input type="checkbox" id="GPSDeviceEnabled" formControlName="GPSDeviceEnabled"  />
+            </div> 
+            
+          
+            </div>
+
+
+
+
+    
+
+
+
+        </p-fieldset>
+        <p-fieldset legend="Other Information">
+
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <!-- Second row of input fields -->
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="InsuranceCompany">InsuranceCompany</label>
+              <input type="text" id="InsuranceCompany" formControlName="InsuranceCompany" pInputText />
+            </div>
+
+            
+          
+
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="RCBookNo">RCBookNo</label>
+                <input type="text" id="RCBookNo" formControlName="RCBookNo" pInputText />
+              </div>
+
+               <div class="flex-auto">
+              <label class="block font-bold mb-2" for="RC_Validity">RC_Validity</label>
+              <p-calendar id="RC_Validity" formControlName="RC_Validity" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+            </div>
+  
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="RegistrationNo">RegistrationNo</label>
+                <input type="text" id="RegistrationNo" formControlName="RegistrationNo" pInputText />
+              </div>
+
+             
+           
+
+
+          </div>
+
+
+
+          
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <!-- Sixth row of input fields -->
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="RegDate">Reg Date</label>
+              <p-calendar id="RegDate" formControlName="RegDate" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+            </div>
+
+          
+            
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="Insurance_Validity">Insurance_Validity</label>
+                <p-calendar id="Insurance_Validity" formControlName="Insurance_Validity" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+              </div>
+
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="FitnessCertificateDate">FitnessCertificateDate</label>
+                <p-calendar id="FitnessCertificateDate" formControlName="FitnessCertificateDate" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+              </div>
+
+             
+
+            
+
+          </div>
+
+
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="AttachedDate">AttachedDate</label>
+              <p-calendar id="AttachedDate" formControlName="AttachedDate" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+            </div>
+
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="Permit_validity">Permit_validity</label>
+              <p-calendar id="Permit_validity" formControlName="Permit_validity" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+            </div>
+          
+            
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="Tax_validdity">Tax_validdity</label>
+              <p-calendar id="Tax_validdity" formControlName="Tax_validdity" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+            </div>
+
+            
+              
+          </div>
+
+
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="Chassis_No">Chassis_No</label>
+              <input type="text" id="Chassis_No" formControlName="Chassis_No" pInputText />
+            </div>
+
+            
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="Fittness_Validdate">Fittness_Validdate</label>
+              <p-calendar id="Fittness_Validdate" formControlName="Fittness_Validdate" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+            </div>
+            <!-- Sixth row of input fields -->
+        
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="Engine_No">Engine_No</label>
+              <input type="Engine_No" id="Engine_No" formControlName="Engine_No" pInputText />
+            </div>
+
+
+          
+
+          </div>
+
+          <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="CertNo">CertNo</label>
+              <input type="text" id="CertNo" formControlName="CertNo" pInputText />
+            </div>
+           
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="InsuranceNo">InsuranceNo</label>
+              <input type="text" id="InsuranceNo" formControlName="InsuranceNo" pInputText />
+            </div>
+
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="RTONo">RTONo</label>
+              <input type="text" id="RTONo" formControlName="RTONo" pInputText />
+            </div>
+
+
+            <div class="flex-auto">
+              <label class="block font-bold mb-2" for="TaxStatus">TaxStatus</label>
+              <input type="text" id="TaxStatus" formControlName="TaxStatus" pInputText />
+            </div>
+          
+
+            </div>
+
+            <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+
+
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="RateKm">RateKm</label>
+                <input type="text" id="RateKm" formControlName="RateKm" pInputText />
+              </div>
+  
+  
+              <!-- <div class="flex-auto">
+                <label class="block font-bold mb-2" for="RateKm">RateKm</label>
+                <p-calendar id="RateKm" formControlName="RateKm" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+              </div> -->
+  
+  
+  
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="StandardMilageKmPerLtr">StandardMilageKmPerLtr</label>
+                <input type="text" id="StandardMilageKmPerLtr" formControlName="StandardMilageKmPerLtr" pInputText />
+              </div>
+  
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="Milage">Milage</label>
+                <input type="text" id="Milage" formControlName="Milage" pInputText />
+              </div>
+  
+
+              </div>
+
+
+
+              <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+
+                <div class="flex-auto">
+                  <label class="block font-bold mb-2" for="PUCC_Validity">PUCC_Validity</label>
+                  <p-calendar id="PUCC_Validity" formControlName="PUCC_Validity" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+                </div>
+
+                <div class="flex-auto">
+                  <label class="block font-bold mb-2" for="FuelTankCapacity">FuelTankCapacity </label>
+                  <input type="text" id="FuelTankCapacity" formControlName="FuelTankCapacity" pInputText />
+                </div>
+    
+                <div class="flex-auto">
+                  <label class="block font-bold mb-2" for="Fitness_Validity">Fitness_Validity</label>
+                  <p-calendar id="Fitness_Validity" formControlName="Fitness_Validity" [showIcon]="true" dateFormat="yy-mm-dd"></p-calendar>
+                </div>
+    
+
+                </div>
+
+          </p-fieldset>
+
+
+          <p-fieldset legend="Inner Dimension">
+            <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+              <!-- Sixth row of input fields -->
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="Length">Length</label>
+                <input type="text" id="Length" formControlName="Length" pInputText />
+              </div>
+  
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="Width">Width</label>
+                <input type="text" id="Width" formControlName="Width" pInputText />
+              </div>
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="Height">Height</label>
+                <input type="text" id="Height" formControlName="Height" pInputText />
+              </div>
+
+
+           
+
+                <div class="flex-auto">
+                  <label class="block font-bold mb-2" for="CloseTrip">CloseTrip</label>
+                  <input type="text" id="CloseTrip" formControlName="CloseTrip" pInputText />
+                </div>
+    
+                <!-- Sixth row of input fields -->
+              
+       
+
+
+            </div>
+
+           
+
+          </p-fieldset>
+          <p-fieldset legend="Payload Capacity as per RC in Ton">
+            <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="Capacity">Capacity</label>
+                <input type="text" id="Capacity" formControlName="Capacity" pInputText />
+              </div>
+  
+              <div class="flex-auto">
+                <label class="block font-bold mb-2" for="GVW">GVW</label>
+                <input type="text" id="GVW" formControlName="GVW" pInputText />
+              </div>
+
+                <div class="flex-auto">
+                  <label class="block font-bold mb-2" for="UnloadedWeight">UnloadedWeight</label>
+                  <input type="text" id="UnloadedWeight" formControlName="UnloadedWeight" pInputText />
+                </div>
+
+                <div class="flex-auto">
+                  <label class="block font-bold mb-2" for="ActiveFlag">ActiveFlag</label>
+                  <p-dropdown
+                    id="Status"
+                    [options]="statusOptions"
+                    formControlName="ActiveFlag"
+                    placeholder="Select a ActiveFlag"
+                    optionLabel="label"
+                    optionValue="value"
+                    [showClear]="true"
+                  ></p-dropdown>
+                </div>
+              
+            </div>
+
+            </p-fieldset>
+          
+            <p-fieldset legend="Upload Document as per RC in Ton">
+              <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+            <div class="flex-auto">
+              <label class="block font-bold mb-2">Upload RC</label>
+              <input type="file" (change)="onFileChange($event, 'UploadRc')" />
+          </div>
+          <div class="flex-auto">
+              <label class="block font-bold mb-2">Upload Insurance</label>
+              <input type="file" (change)="onFileChange($event, 'UploadInsuarance')" />
+          </div>
+          <div class="flex-auto">
+              <label class="block font-bold mb-2">Upload Permit</label>
+              <input type="file" (change)="onFileChange($event, 'UploadPermit')" />
+          </div>
+          <div class="flex-auto">
+              <label class="block font-bold mb-2">Upload PUC</label>
+              <input type="file" (change)="onFileChange($event, 'UploadPUC')" />
+          </div>
+          </div>
+
+        </p-fieldset>
+      <p-footer>
+        <button
+          type="button"
+          pButton
+          label="Cancel"
+          (click)="cancel()"
+          class="p-button-secondary mx-1"
+        ></button>
+        <button
+          type="submit"
+          pButton
+          [label]="isEditMode ? 'Update' : 'Save'"
+          [disabled]="!vehicleForm.valid"
+        ></button>
+      </p-footer>
+    </p-card>
+  </form>
+</div>
+
+<!-- Step 2: Display Tenant Details or Error Message -->
+<div *ngIf="currentStep === 1">
+  <div *ngIf="operationSuccessful">
+    <app-vehicle-detail [vehicle]="createdOrEditedvehicle"></app-vehicle-detail>
+    <button
+      type="button"
+      pButton
+      label="OK"
+      (click)="resetFormAndNavigateBack()"
+    ></button>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+    <button type="button" pButton label="OK" (click)="currentStep = 0"></button>
+  </div>
+</div>

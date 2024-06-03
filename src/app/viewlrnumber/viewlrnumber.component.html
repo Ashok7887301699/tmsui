@@ -1,0 +1,75 @@
+<div style="box-shadow: 2px 2px 5px #888888; display: inline-block; padding: 10px; width: 800px;">
+    <span style="color: black; font-weight: bold; font-size: 20px; text-align: center;">LR is successfully generated:-</span>
+    <h3 style="color: green; font-weight: bold; text-align: left;"> LR Number:- {{ customLrNum }}</h3>
+  </div>
+  
+  <style>
+
+    @media print{
+    body{
+      margin:0px;
+    
+    }
+    @page {
+    
+        size:A5 landscape;
+        
+       margin: 5.588mm 4.572mm 5.334mm 4.572mm;
+    
+       
+    }
+    } 
+    
+    /* @media print{
+    body{
+      margin:0px;
+    
+    }
+    @page {
+    
+        size:A4;
+    
+       margin: 4mm 6.3mm 0mm 4mm;
+    
+       
+    }
+    } */
+    .verticaltext {
+      transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      -webkit-transform: rotate(90deg);
+      font-size : 1.1em;
+      font-weight:bold;
+      filter: " progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)";  /* IE6,IE7 */
+      -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+      margin-top: 0em;
+      margin-left: -8em;
+      margin-right: -9em;
+    }
+    tr.tab td, th {
+      border: 1px solid;
+    }
+    tr.noBorder td {
+      border: 0;
+    }
+    th,td{
+      text-align:center;
+    }
+    .watermark{
+        position:relative;
+    }
+    .watermark{
+        position:absolute;
+        bottom:80;
+        right:10;
+        content:"COPYRIGHT";
+        font-size:100px;
+        font-weight:500px;
+        display:grid;
+        transform:rotate(-45deg);
+        
+    }
+    </style>
+  <br><br><br>
+  <p-button (click)="printContent()">Lr Lazer Print</p-button>
+

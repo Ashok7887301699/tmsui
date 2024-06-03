@@ -1,0 +1,16 @@
+<!-- src/app/tenant/tenant-detail.component.html -->
+
+<div *ngIf="tenant">
+  
+  <h2>Tenant Details</h2>
+  <p><strong>Id:</strong> {{ tenant.id }}</p>
+  <p><strong>Name:</strong> {{ tenant.name }}</p>
+  <p><strong>Country:</strong> {{ tenant.country }}</p>
+  <p><strong>State:</strong> {{ tenant.state }}</p>
+  <p><strong>City:</strong> {{ tenant.city }}</p>
+  <p><strong>Short Name:</strong> {{ tenant.short_name }}</p>
+  <p><strong>Logo:</strong> {{ tenant.logo_url }}</p>
+  <p><strong>Status:</strong> {{ tenant.status }}</p>
+  <p><strong>Created At:</strong> {{ tenant.created_at | date }}</p>
+  <p><strong>Updated At:</strong> {{ tenant.updated_at | date }}</p>
+</div>

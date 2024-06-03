@@ -1,0 +1,241 @@
+<p-steps
+  [model]="steps"
+  [(activeIndex)]="currentStep"
+  [readonly]="false"
+></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<!-- Step 1: Tenant Form -->
+<!-- Step 1: Tenant Form -->
+<div *ngIf="currentStep === 0">
+  <form [formGroup]="lsForm">
+    <p-card>
+      <p-fieldset legend="Loading Sheet Form">
+     
+        
+          
+        <div class="p-col-3 text-center">
+          <br>
+          <p><b>Enter LR Number</b></p>
+          <p-autoComplete formControlName="custom_lr_num" [suggestions]="filteredCustomLrnum" (completeMethod)="filterLr($event)" field="label"></p-autoComplete>
+
+
+          <br>
+          <br>
+          <div class="p-col-3 text-center">
+             <button type="button" pButton label="Add Row" (click)="addRow()" required></button>
+          </div>
+        </div>
+        <br>
+        <div class="table-container" style="overflow:auto">
+          <table id="lrdetails" class="table-responsive col-12">
+              <thead>
+                  <tr>
+                    <th>Seq Num</th>
+                      <th>LR_NO</th>
+                      <th>booking_date_time</th>
+                      <th>payment_type</th>
+                      <th>From_Place</th>
+                      <th>To_Place</th>
+                      <th>Arrive_Date</th>
+                      <th>num_of_pkgs</th>
+                      <th>actual_weight_per_pkg</th>
+                      <th>docket_total_charges</th>
+                      <th style="display: none;"></th>
+                      <th style="display: none;"></th>
+                      <th>Delete</th>
+                  </tr>
+              </thead>
+              <tbody id="lrdetailsbody">
+                  <!-- Table body content will be populated dynamically -->
+              </tbody>
+              <tfoot id="lrfooter">
+                  <tr>
+                      <td colspan="6"></td>
+                      <td><b>Total</b></td>
+                      <td id="totalqty">0</td>
+                      <td><span id="totalwt">0</span></td>
+                      <td colspan="4"></td>
+                  </tr>
+              </tfoot>
+          </table>
+      </div>
+      
+        <br>
+            <br>
+              <div class="row row p-grid flex-row gap-1 " style="display: flex;">
+                <div class="p-col-3">
+                  <span id="totaldockettotal">
+                  </span>
+              </div>
+              <div class="p-col-3">
+              </div>
+              <div class="p-col-3">
+                <label  style="margin-right: 20px;" >GP:</label><br>
+                  <input  type="text" id="gppercentage"  style="margin-right: 50px;" formControlName="gppercentage" readonly pInputText/>
+                  <span id="gppercentage"></span>
+              </div>
+
+              <div class="p-col-3">
+                <label  style="margin-right: 20px;" >Total ToPay: </label><br>
+                <input  type="text" id="TotalToPay" formControlName="TotalToPay" readonly pInputText/>
+                <span id="TotalToPay"></span>
+            </div>
+
+           
+
+            <!-- <div class="p-col-3">
+                Select Destination:
+                <input  type="text" id="Destination" name="Destination" readonly pInputText/>
+                <span id="Destination"></span>
+            </div> -->
+
+           
+             
+            </div>  
+            
+            <div class="row row p-grid flex-row gap-1 " style="display: flex;">
+
+              <div class="p-col-3" style="margin-top: 50px;">
+                <label  style="margin-right: 20px;" >Contract Amount:</label><br>
+                <input  type="number"  id="freight_charges"  style="margin-right: 50px;"  formControlName="freight_charges" pInputText/>
+                <span id="freight_charges"></span>
+            </div>
+
+              <div class="p-col-3" style="margin-top: 50px;" *ngIf="showDestination">
+                <label  style="margin-right: 20px;" for="Destination">Destination</label><br>
+                <p-dropdown [options]="DestinationOptions" formControlName="Destination" optionLabel="label" optionValue="value" placeholder="Select Destination"></p-dropdown>
+              </div>
+            </div>  
+     
+      </p-fieldset>
+      <p-footer>
+        <button type="button" pButton label="Cancel" (click)="cancel()" class="p-button-secondary mx-1"></button>
+        <!-- <button type="submit" pButton [label]="isEditMode ? 'Update' : 'Save'" [disabled]="!lsForm.valid"></button> -->
+        <button type="button" pButton label="Create DRS" (click)="createDRS()" class="mx-1"></button>
+        <button type="button" pButton label="Create THC" (click)="createTHC()" class="mx-1"></button>
+      </p-footer>
+    </p-card>
+  </form>
+</div>
+
+
+<!-- Confirmation Dialog -->
+<!-- <p-dialog header="Confirmation" [(visible)]="displayConfirmation" [modal]="true" [closable]="false">
+  <p>Are you sure you want to {{ action }}?</p>
+  <p-footer>
+    <button type="button" pButton label="Yes" (click)="executeAction()"></button>
+    <button type="button" pButton label="No" (click)="displayConfirmation = false"></button>
+  </p-footer>
+</p-dialog> -->
+
+<!-- Step 2: Display Tenant Details or Error Message -->
+<div *ngIf="currentStep === 1">
+  <div *ngIf="operationSuccessful">
+    <!-- <app-drs-detail [drs]="createdOrEditedDrs"></app-drs-detail> -->
+    <button
+      type="button"
+      pButton
+      labela="OK"
+      (click)="resetFormAndNavigateBack()"
+    ></button>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+    <button type="button" pButton label="OK" (click)="currentStep = 0"></button>
+  </div>
+</div>
+
+<style>
+ 
+.table-container {
+    width: 100%;
+    overflow-x: scroll;
+}
+td, th {
+  text-align: center;
+}
+#lrdetails,
+#lrdetails1 {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#lrdetails th,
+#lrdetails td,
+#lrdetails1 th,
+#lrdetails1 td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#lrdetails th,
+#lrdetails1 th {
+    background-color: #2c2d58a3;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+#lrdetails input[type="text"],
+#lrdetails1 input[type="text"],
+#lrdetails select,
+#lrdetails1 select {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    #lrdetails,
+    #lrdetails1 {
+        font-size: 12px;
+    }
+}
+
+/* Additional styles */
+#lrdetails .str_lr_no,
+#lrdetails1 .str_lr_no,
+#lrdetails .lrdate,
+#lrdetails1 .lrdate,
+#lrdetails .paytype,
+#lrdetails1 .paytype,
+#lrdetails .from_location,
+#lrdetails1 .from_location,
+#lrdetails .to_location,
+#lrdetails1 .to_location,
+#lrdetails .arrive_date,
+#lrdetails1 .arrive_date,
+#lrdetails .PkgsNo,
+#lrdetails1 .PkgsNo,
+#lrdetails .actual_weight,
+#lrdetails1 .actual_weight,
+#lrdetails .grandtotal,
+#lrdetails1 .grandtotal,
+#lrdetails .InvoiceNo,
+#lrdetails1 .InvoiceNo,
+#lrdetails .Consignor,
+#lrdetails1 .Consignor,
+#lrdetails .Consignee,
+#lrdetails1 .Consignee,
+#lrdetails .delete-btn,
+#lrdetails1 .delete-btn {
+    padding: 10px; /* Adjust padding */
+}
+
+#lrdetails .delete-btn,
+#lrdetails1 .delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+#lrdetails .delete-btn:hover,
+#lrdetails1 .delete-btn:hover {
+    background-color: #c82333;
+}
+
+</style>

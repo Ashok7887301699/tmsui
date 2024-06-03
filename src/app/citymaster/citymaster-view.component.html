@@ -1,0 +1,8 @@
+<ng-container *ngIf="citymaster; else loading">
+    <app-citymaster-detail [citymaster]="citymaster"></app-citymaster-detail>
+    <!-- PrimeNG Button Component -->
+    <button type="button" pButton label="OK" (click)="goBack()"></button>
+</ng-container>
+<ng-template #loading>
+    <div class="p-grid p-align-center p-justify-center"></div>
+</ng-template>

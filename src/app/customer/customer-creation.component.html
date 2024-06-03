@@ -1,0 +1,25 @@
+
+
+<!-- custgroupcode dropdown -->
+<!-- <form [formGroup]="customercreationForm" (ngSubmit)="onSubmit()">
+  <div class="flex-auto col-2">
+    <label class="block mb-2" for="cust_group_code">Customer Group Code</label>
+    <p-dropdown [options]="customerGroupCodes" formControlName="cust_group_code" optionLabel="label" optionValue="value" placeholder="Select a Customer Group Code"></p-dropdown>
+  </div>
+  <p-button type="submit" label="Submit"></p-button>
+</form> -->
+
+<div class="form-container">
+  <form [formGroup]="customercreationForm" (ngSubmit)="onSubmit()">
+    <div >
+      <label style="float:left;" for="cust_group_code">Customer Group Code</label>
+      <br>
+    </div>
+    <div >
+      <p-dropdown [options]="customerGroupCodes" class="mt-3" formControlName="cust_group_code" optionLabel="label" optionValue="value" placeholder="Select a Customer Group Code"></p-dropdown>
+
+    </div>
+    <br>
+    <p-button type="submit" label="Submit"></p-button>
+  </form>
+</div>

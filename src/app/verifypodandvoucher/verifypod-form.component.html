@@ -1,0 +1,192 @@
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    border: 1px solid #e9e3e3;
+    text-align: left;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #14b8a6;
+  }
+
+
+  .delivered-green {
+    color: green;
+  }
+
+  .verified-green {
+    color: green;
+  }
+
+  .dispute-red {
+    color: red;
+  }
+</style>
+
+<p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<div *ngIf="currentStep === 0">
+  <p-card>
+    <p-fieldset legend="Verify POD" class="scrollable-fieldset">
+      <br><br />
+      <form [formGroup]="verifypodForm" (ngSubmit)="onSubmit()">
+        <div class="card">
+          <div>
+            <p-autoComplete [suggestions]="suggestions" formControlName="id" field="id" [dropdown]="true"
+              (completeMethod)="searchCity($event)" (onSelect)="autoCompleteChange($event)">
+              <ng-template let-item pTemplate="item">
+                {{ item.id }}
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <br><br><br>
+          <div *ngIf="!operationSuccessful" class="card">
+            <p-messages [value]="messages"></p-messages>
+          </div>
+          <p-messages [(value)]="messages"></p-messages>
+
+          <div *ngIf="operationSuccessful">
+            <table>
+              <thead>
+                <tr>
+                  <th><strong>DRS No.</strong></th>
+                  <th><strong>DRS Date</strong></th>
+                  <th><strong>Vehicle No.</strong></th>
+                  <th><strong>Vendor Name</strong></th>
+                  <th><strong>Driver Name</strong></th>
+                  <th><strong>Driver Mobile No.</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ createdOrEditedDepot.id }}</td>
+                  <td>{{ createdOrEditedDepot.dated }}</td>
+                  <td>{{ createdOrEditedDepot.vehicle_num }}</td>
+                  <td>{{ createdOrEditedDepot.vendor_name }}</td>
+                  <td>{{ createdOrEditedDepot.driver_name }}</td>
+                  <td>{{ createdOrEditedDepot.driver_mobile }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <br><br>
+            <p-table>
+              <ng-template pTemplate="header">
+                <thead>
+                  <tr>
+                    <th>Sr/No</th>
+                    <th>Cosigner Name</th>
+                    <th>LR No</th>
+                    <th>Place</th>
+                    <th>POD/Image</th>
+                    <th>Verify</th>
+                    <th>Qty</th>
+                    <th>Hamali</th>
+                    <th>ToPay Rate</th>
+                    <th>Late Reason</th>
+                    <th>Delivery</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="createdOrEditedDepot && createdOrEditedDepot.drsno_data">
+                  <tr *ngFor="let drsno of createdOrEditedDepot.drsno_data; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ drsno.CustName }}</td>
+                    <td>{{ drsno.podlr }}</td>
+                    <td>{{ drsno.plase }}</td>
+                    <td>
+                      <img *ngIf="drsno.pod_artefact_url" [src]="drsno.pod_artefact_url" alt="POD/Image"
+                        style="height: 100px; width: 100px;">
+                    </td>
+                    <td [ngClass]="getVerificationClass(drsno.verified)">
+                      <ng-container *ngIf="drsno.verified === 1; else notVerified">
+                        Verified
+                      </ng-container>
+                      <ng-container *ngIf="drsno.verified === 4; else notDispute">
+                        Dispute
+                      </ng-container>
+                      <ng-container *ngIf="drsno.verified === 0; else notHandled">
+                        <ng-container *ngIf="drsno.delivered === 1">
+                          <ng-container *ngIf="drsno.verified === 0; else notHandled">
+                            <!-- Inside your ngFor loop -->
+                            <div>
+                              <input type="radio" id="GoodRadio{{i}}" [name]="'verification_' + i"
+                                [checked]="verifypodForm.get('verification.' + i)?.value === 'Good'"
+                                (change)="onVerificationChange('Good', i)">
+                              <label for="GoodRadio{{i}}">GOOD</label>
+                            </div>
+                            <div>
+                              <input type="radio" id="noRadio{{i}}" [name]="'verification_' + i"
+                                [checked]="verifypodForm.get('verification.' + i)?.value === 'Bad'"
+                                (change)="onVerificationChange('Bad', i)">
+                              <label for="noRadio{{i}}">Bad</label>
+                            </div>
+                            <div>
+                              <input type="radio" id="DisputeRadio{{i}}" [name]="'verification_' + i"
+                                [checked]="verifypodForm.get('verification.' + i)?.value === 'Dispute'"
+                                (change)="onVerificationChange('Dispute', i)">
+                              <label for="DisputeRadio{{i}}">Dispute</label>
+                            </div>
+
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                      <ng-template #notVerified></ng-template>
+                      <ng-template #notDispute></ng-template>
+                      <ng-template #notHandled></ng-template>
+                    </td>
+
+
+
+                    <td><input type="number" id="Qty{{i}}" style="width: 100px;" formControlName="qty" pInputText /></td>
+                    <td><input type="number" id="Hamali{{i}}" style="width: 100px;" formControlName="hamali" pInputText />
+                    </td>
+
+
+                    <td>
+                      <div>
+                        <input type="radio" id="CashRadio{{i}}" [attr.name]="'ToPayType' + i"
+                          formControlName="ToPayType" value="Cash" (change)="toggleToPayRefInput(false, i)">
+                        <label for="CashRadio{{i}}">Cash</label>
+                      </div>
+                      <div>
+                        <input type="radio" id="BankRadio{{i}}" [attr.name]="'ToPayType' + i"
+                          formControlName="ToPayType" value="Bank" (change)="toggleToPayRefInput(true, i)">
+                        <label for="BankRadio{{i}}">Bank</label>
+                      </div>
+
+                      <input type="number" id="ToPay" style="width: 100px;" formControlName="toPayRate" pInputText />
+                      <label for="ToPay">To Pay</label>
+                      <input type="number" id="ToPayref{{i}}" style="width: 100px;" formControlName="ToPayref"
+                        pInputText [hidden]="!isToPayRefVisible[i]" />
+                    </td>
+
+
+
+                    <td><textarea rows="1" cols="15"  id='lateReason{{i}}'formControlName="lateReason" pInputTextarea></textarea></td>
+                    <td [ngClass]="getDeliveredClass(drsno.delivered)">
+                      <span *ngIf="drsno.delivered === 1">Delivered</span><br>{{ drsno.del_datetime }}
+                      <input *ngIf="drsno.delivered !== 1" type="date" id="date{{i}}" formControlName="deliveryDate"
+                        pInputText />
+                    </td>
+                  </tr>
+                </tbody>
+
+              </ng-template>
+            </p-table>
+          </div>
+
+          <br><br>
+          <button pButton type="submit">Submit</button>&nbsp;
+          <button pButton type="button">Voucher</button>
+        </div>
+      </form>
+    </p-fieldset>
+  </p-card>
+</div>

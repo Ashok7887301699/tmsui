@@ -1,0 +1,134 @@
+<!-- Import PrimeNG Steps and Messages components in your component template -->
+<p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<!-- Step 1: Branch Form -->
+<div *ngIf="currentStep === 0">
+  <!-- Form layout using PrimeNG components -->
+  <form [formGroup]="branchForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <p-card>
+      <p-fieldset legend="Branch Details">
+        <!-- Branch code, Branch name, GST State Code -->
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <div class="flex-auto">
+            <label class="block mb-2" for="BranchCode">Branch Code</label>
+            <input type="text" id="BranchCode" [(ngModel)]="branchCode" name="branchCode" pInputText
+              (input)="convertToUppercase($event, 'BranchCode')" formControlName="BranchCode" autofocus
+              [attr.readonly]="isEditMode ? true : null" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block mb-2" for="BranchName">Branch Name</label>
+            <input type="text" id="BranchName" (input)="convertToUppercase($event, 'BranchName')"
+              formControlName="BranchName" pInputText />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block mb-2" for="GSTStateCode">
+              GST State Code
+            </label>
+            <input type="text" pInputText [id]="'GSTStateCode'" formControlName="GSTStateCode" />
+          </div>
+        </div>
+
+        <!-- Branch type, Latitude, Longitude  -->
+        <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+          <div class="flex-auto">
+            <label class="block mb-2" for="BranchType"> Branch Type </label>
+            <p-dropdown id="BranchType" [options]="branchTypeOptions" formControlName="BranchType"
+              placeholder="Select a Branch Type" [showClear]="true"></p-dropdown>
+          </div>
+
+          <div class="flex-auto">
+            <label class="block mb-2" for="Latitude">Latitude</label>
+            <input type="text" pInputText [id]="'Latitude'" formControlName="Latitude" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block mb-2" for="Longitude">Longitude</label>
+            <input type="text" pInputText [id]="'Longitude'" formControlName="Longitude" />
+          </div>
+        </div>
+
+        <!-- City, Taluka, District -->
+        <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+          <div class="flex-auto">
+            <label class="block mb-2" for="City">City</label>
+            <input type="text" id="City" (input)="convertToUppercase($event, 'City')" formControlName="City"
+              pInputText />
+          </div>
+          <div class="flex-auto">
+            <label class="block mb-2" for="Taluka">Taluka</label>
+            <input type="text" id="Taluka" (input)="convertToUppercase($event, 'Taluka')" formControlName="Taluka"
+              pInputText />
+          </div>
+          <div class="flex-auto">
+            <label class="block mb-2" for="District">District</label>
+            <input type="text" id="District" (input)="convertToUppercase($event, 'District')" formControlName="District"
+              pInputText />
+          </div>
+        </div>
+
+        <!--State, Country, Status -->
+        <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+          <div class="flex-auto">
+            <label class="block mb-2" for="State">State</label>
+            <input type="text" id="State" (input)="convertToUppercase($event, 'State')" formControlName="State"
+              pInputText />
+          </div>
+          <div class="flex-auto">
+            <label class="block mb-2" for="Country">Country</label>
+            <input type="text" id="Country" (input)="convertToUppercase($event, 'Country')" formControlName="Country"
+              pInputText />
+          </div>
+          <div class="flex-auto" *ngIf="isEditMode">
+            <label class="block mb-2" for="Status">Status</label>
+            <p-dropdown id="Status" [options]="statusOptions" placeholder="Select a Status"
+              optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
+          </div>
+        </div>
+
+        <!--UploadBranch, UploadShopAct, RegionalBranchName -->
+        <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+          <div class="flex-auto">
+            <label class="block mb-2" for="UploadBranch"> Upload Branch </label>
+            <input type="file" id="UploadBranch" name="UploadBranch" accept="image/*"
+              (change)="onFileSelected($event, 'UploadBranch')" />
+          </div>
+          <div class="flex-auto">
+            <label class="block mb-2" for="UploadShopAct">
+              Upload Shop Act
+            </label>
+            <input type="file" id="UploadShopAct" name="UploadShopAct" accept="image/*"
+              (change)="onFileSelected($event, 'UploadShopAct')" />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block mb-2" for="RegionalBranchName">
+              Regional Branch Name
+            </label>
+            <input type="text" id="RegionalBranchName" (input)="convertToUppercase($event, 'RegionalBranchName')"
+              formControlName="RegionalBranchName" pInputText />
+          </div>
+        </div>
+      </p-fieldset>
+
+      <p-footer>
+        <button type="button" pButton label="Cancel" (click)="cancel()" class="p-button-secondary mx-1"></button>
+        <button type="submit" pButton [label]="isEditMode ? 'Update' : 'Save'" [disabled]="!branchForm.valid"></button>
+      </p-footer>
+    </p-card>
+  </form>
+</div>
+
+<!-- Step 2: Display Branch Details or Error Message -->
+<div *ngIf="currentStep === 1">
+  <div *ngIf="operationSuccessful">
+    <app-branch-detail [branch]="createdOrEditedBranch"></app-branch-detail>
+    <button type="button" pButton label="OK" (click)="resetFormAndNavigateBack()"></button>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+    <button type="button" pButton label="OK" (click)="currentStep = 0"></button>
+  </div>
+</div>

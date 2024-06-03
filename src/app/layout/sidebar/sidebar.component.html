@@ -1,0 +1,20 @@
+<!-- sidebar.component.html -->
+<div class="sidebar">
+  <img
+    *ngIf="userContext?.tenantLogoUrl"
+    [src]="userContext?.tenantLogoUrl"
+    alt="Tenant Logo"
+    class="tenant-logo"
+  />
+  <!-- Added a wrapper div for the menu with the class "menu-scroll" -->
+  <div class="menu-scroll">
+    <p-panelMenu [model]="menuItems"></p-panelMenu>
+  </div>
+</div>
+
+
+<style>.sidebar {
+  max-height: calc(100vh - 60px); /* Adjust based on the header's height */
+  overflow-y: auto;
+}
+</style>

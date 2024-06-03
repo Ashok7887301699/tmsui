@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; // Use min-height to ensure it covers at least the viewport height
+}
+.content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}

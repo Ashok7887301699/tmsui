@@ -1,0 +1,40 @@
+.login-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  display: flex;
+  margin: auto; // Centering in the flex container
+  flex-direction: column;
+  gap: 10px;
+  width: 400px;
+  box-sizing: border-box; // Include padding and border in the element's total width
+}
+
+@media (max-width: 450px) {
+  .login-card {
+    width: auto; // Allow the card to fit the screen size
+    margin: 10px; // Give some space around the card
+  }
+}
+
+h2 {
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+
+  label {
+    align-self: flex-start;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+button {
+  margin-top: 10px;
+}

@@ -1,0 +1,116 @@
+<!-- Import PrimeNG Steps and Messages components in your component template -->
+<p-steps
+  [model]="steps"
+  [(activeIndex)]="currentStep"
+  [readonly]="false"
+></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<!-- Step 1: Tenant Form -->
+<div *ngIf="currentStep === 0">
+  <!-- Form layout using PrimeNG components -->
+  <form [formGroup]="ContractForm" (ngSubmit)="onSubmit()">
+    <p-card>
+      <p-fieldset legend="Contract Details">
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <div class="flex-auto col-3">
+            <label class="block font-bold mb-2" for="sap_cust_code">Customer Id</label>
+            <p-autoComplete [suggestions]="suggestions" formControlName="sap_cust_code" (completeMethod)="search($event)" (onSelect)="onSuggestionSelect($event)"></p-autoComplete>
+          </div>
+          <div class="flex-auto col-3">
+            <label class="block font-bold mb-2" for="Ctype">Contract Type</label>
+            <input
+              type="text"
+              id="Category"
+              formControlName="Category"
+              pInputText readonly/>
+          </div>
+        </div>
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <!-- Start_date -->
+          <div class="flex-auto col-3">
+            <label class="block font-bold mb-2" for="start_date">Start date</label>
+            <p-calendar 
+            id="Start_date" 
+            [showIcon]="true" 
+            placeholder="Start Date" 
+            formControlName="start_date" 
+            [style]="{'width': '100%'}" 
+            dateFormat="yy-mm-dd"
+            [minDate]="minStartDate"></p-calendar>          </div>
+
+          <div class="flex-auto col-3">
+            <label class="block font-bold mb-2" for="end_date">End date</label>
+            <p-calendar 
+            id="End_date" 
+            [showIcon]="true" 
+            placeholder="End Date" 
+            formControlName="end_date" 
+            [style]="{'width': '100%'}" 
+            dateFormat="yy-mm-dd" [minDate]="minStartDate">
+          </p-calendar>
+          </div>
+        </div>                   
+      </p-fieldset>
+
+      <p-footer>
+        <button
+          type="button"
+          pButton
+          label="Cancel"
+          (click)="cancel()"
+          class="p-button-secondary mx-1"
+        ></button>
+        <button
+          type="submit"
+          pButton
+          [label]="isEditMode ? 'Update' : 'Save'"
+          [disabled]="!ContractForm.valid"
+        ></button>
+      </p-footer>
+    </p-card>
+  </form>
+</div>
+
+<!-- Step 2: Display Service selection Details or Error Message -->
+<div *ngIf="currentStep === 1">
+  <div *ngIf="operationSuccessful">
+    <app-Serviceselection [contract]="createdOrEditedContract" (serviceSelectionSuccess)="onServiceSelectionSuccess()"></app-Serviceselection>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+  </div>
+</div>
+<div *ngIf="currentStep === 2">
+  <div *ngIf="operationSuccessful">
+    <app-ContractExcess [contract]="createdOrEditedContract" (serviceexcessSuccess)="onserviceexcessSuccess()"></app-ContractExcess>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+  </div>
+</div>
+<div *ngIf="currentStep === 3">
+  <div *ngIf="operationSuccessful">
+    <app-doordelivery [contract]="createdOrEditedContract" (servicedoordelivery)="onservicedoordelivery()" ></app-doordelivery>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+  </div>
+</div>
+
+<div *ngIf="currentStep === 4">
+  <div *ngIf="operationSuccessful">
+    <app-Slabdefination [contract]="createdOrEditedContract" (slabdefinationsucess)="onslabdefinationsucess()"></app-Slabdefination>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+  </div>
+</div>
+<div *ngIf="currentStep === 5">
+  <div *ngIf="operationSuccessful">
+    <app-Slabrate [contract]="createdOrEditedContract" (contractslabrateSuccess)="onslabratesucess()"></app-Slabrate>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+  </div>
+</div>

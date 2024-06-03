@@ -1,0 +1,93 @@
+<!-- Import PrimeNG Steps and Messages components in your component template -->
+
+<p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<!-- Step 1: Tenant Form -->
+<div *ngIf="currentStep === 0">
+    <!-- Form layout using PrimeNG components -->
+    <form [formGroup]="pickuprequestnoteupdatearrivalForm" (ngSubmit)="onSubmit()">
+        <p-card>
+            <p-fieldset legend="UPDATE STOCK ARIVAL PRN Details">
+                <div *ngIf="pickupRequestNote">
+                    <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+                        <div class="flex-auto col-3">
+                            <div class="detail-item">
+                                <label> <strong>PRN NO:</strong>&nbsp;&nbsp;&nbsp;&nbsp; {{ pickupRequestNote.id }}</label>
+
+                            </div>
+
+                        </div>
+                        <div class="flex-auto col-3">
+                            <div class="detail-item">
+                                <label><strong>PRNDate:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{ pickupRequestNote.pickup_datetime }}</label>
+
+                            </div>
+                        </div>
+                        <div class="flex-auto col-3">
+                            <div class="detail-item">
+                                <label><strong>Vehicle No:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{ pickupRequestNote.vehicle_num }}</label>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card flex flex-wrap gap-4 p-fluid mb-4">
+                        <div class="flex-auto col-2">
+                            <input type="radio" id="unloading" name="option" value="unloading" formControlName="option" (change)="toggleFields()">
+                            <label for="unloading"><strong>Unloading</strong></label>
+                            <input type="radio" id="withoutunloading" name="option" value="withoutunloading" formControlName="option" (change)="toggleFields()">
+                            <label for="withoutunloading"><strong>Without Unloading</strong></label>
+                        </div>
+                        <div class="flex-auto col-2" id="arrivalhamalivendorname" [hidden]="isWithoutUnloadingSelected()">
+                            <label class="block font-bold mb-2" for="hamalivendorname">Hamali Vendor Name</label>
+                            <p-dropdown id="arrivalhamalivendorname" [options]="hamalivendornameOptions" formControlName="arrivalhamalivendorname" placeholder="Hamali Vendor Name" optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
+                        </div>
+                        <div class="flex-auto col-2" id="arrivalhamalivendoramount" [hidden]="isWithoutUnloadingSelected()">
+                            <label class="block font-bold mb-2" for="arrivalhamalivendoramount">Hamali Amount</label>
+                            <input type="text" id="arrivalhamalivendoramount" formControlName="arrivalhamalivendoramount" pInputText />
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div *ngIf="pickupRequestDetails && pickupRequestDetails.length > 0" class="card flex flex-wrap gap-4 p-fluid mb-4">
+                    <p-table [tableStyle]="{ 'min-width': '70rem' }" [value]="pickupRequestDetails">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>LR NO</th>
+                                <th>LR Date</th>
+                                <th>Place</th>
+                                <th>Qty</th>
+                                <th>Received Qty</th>
+                                <th>Reason</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-prn let-i="rowIndex">
+                            <tr>
+                                <td>{{ prn.lr_id }}</td>
+                                <td>{{ prn.created_at | date }}</td>
+                                <td>{{ prn.to_place }}</td>
+                                <td>{{ prn.total_num_of_pkgs }}</td>
+                                <td>
+                                    <input type="text" id="recievedqty" [value]="prn.total_num_of_pkgs" pInputText />
+                                </td>
+                                <td>
+                                    <p-dropdown [options]="resonOptions" formControlName="reason" placeholder="Select a reason" optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+
+
+            </p-fieldset>
+
+            <p-footer>
+                <button type="button " pButton label="Cancel " (click)="cancel() " class="p-button-secondary mx-1 "></button>
+                <button type="submit " pButton [label]="isEditMode ? 'Update' : 'Save' " [disabled]="!pickuprequestnoteupdatearrivalForm.valid "></button>
+            </p-footer>
+        </p-card>
+    </form>
+</div>

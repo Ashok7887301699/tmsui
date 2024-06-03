@@ -1,0 +1,56 @@
+  <!-- <p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps> -->
+  <p-messages [(value)]="messages"></p-messages>
+
+  <div *ngIf="contract">
+    <p-card>
+      <p-fieldset legend="Door Delivery Rate" >
+        <button pButton type="button" (click)="addRow()" label="Add Row"></button>
+        <br><br />
+        <form [formGroup]="doordeliveryForm" (ngSubmit)="onSubmit()">
+          <div class="card">
+            <p-table [columns]="cols" [value]="products" class="full-width-table">
+              <ng-template pTemplate="header" let-columns>
+
+                <div formArrayName="doordeliverys">
+                  <div  *ngFor="let contract of doordeliverys.controls; let i = index" [formGroupName]="i">
+                    <tr >
+                      <th>From City</th>
+                      <th>To City</th>
+                      <th>Door Delivery Rate</th>
+                    </tr>
+                    <tr >
+                      <td>
+                        <p-autoComplete [suggestions]="suggestions" formControlName="from_place"
+                          (completeMethod)="searchcity($event)"></p-autoComplete>
+                      </td><td>
+                      <p-autoComplete [suggestions]="suggestions" formControlName="to_place" id="to_place"
+                        class="p-inputtext-sm" (completeMethod)="searchtocity($event)" ></p-autoComplete>
+                      </td><td>
+                        <input type="text" id="rate" formControlName="rate" pInputText />
+                      </td>
+                    </tr>
+                  </div>
+                </div>
+                <br><br />
+                <p-footer>
+                  <button type="button" pButton label="Cancel" (click)="cancel()" class="p-button-secondary mx-1"></button>
+                  <button type="submit" pButton label="{{ isEditMode ? 'Update' : 'Save' }}" [disabled]="!doordeliveryForm.valid" class="mx-1"></button>
+                </p-footer>           
+               </ng-template>
+            </p-table>
+          </div>
+        </form>
+        <br><br/>
+        <form [formGroup]="doordeliveryForm">
+          <div class="form-group">
+            <input type="file" pInputText (change)="Upload($event)" accept=".xlsx, .xls, .CSV" />
+          </div>
+        </form>
+        <a href="#" (click)="downloadExcelFormat()" style="margin-left: 950px;" class="p-button-secondary">Download Excel
+          Format</a>
+      </p-fieldset>
+    </p-card>
+
+  </div>
+
+

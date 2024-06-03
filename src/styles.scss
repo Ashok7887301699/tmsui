@@ -1,0 +1,286 @@
+/* Global styles and imports */
+@import "primeng/resources/themes/lara-light-teal/theme.css";
+@import "primeng/resources/primeng.min.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 20%; /* Width of the sidebar */
+  position: fixed; /* Fixed position relative to the viewport */
+  top: 0; /* Align to the top of the viewport */
+  left: 0; /* Align to the left of the viewport */
+  height: 100vh; /* Full viewport height */
+  background-color: #f9fafb;
+  padding: 10px; /* Remove any default padding */
+  margin-left: 0px;
+  box-shadow: 3px 0 10px -6px rgba(0, 0, 0, 0.4);
+
+  .tenant-logo {
+    width: 100%;
+    padding: 0px; /* Add padding around the logo if needed */
+    margin-bottom: 50px; /* Add 50px margin below the logo */
+  }
+
+  .p-panelmenu .p-panelmenu-header .p-panelmenu-header-content {
+    border: 0px;
+  }
+
+  .p-panelmenu .p-panelmenu-header .p-menuitem-text {
+    font-weight: normal; // Adjusts font weight to normal
+    .pi {
+      font-weight: normal; // Adjusts icon font weight to normal
+    }
+  }
+
+  .p-panelmenu .p-panelmenu-content {
+    padding-left: 2em; // Adjust the value as needed for indentation
+    background-color: #f7f7f7;
+    border: 0px;
+    a:hover {
+      border-left: 4px solid var(--primary-color); /* Vertical line on the left */
+    }
+  }
+
+  .p-panelmenu .p-panelmenu-content .p-menuitem-text {
+    color: var(--primary-color);
+  }
+}
+
+.p-breadcrumb {
+  border: none; // Removes the border
+  background: transparent; // Optional: Makes the background transparent
+}
+
+/* Main content styles */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20%; /* Offset by the width of the sidebar */
+  float: none; /* Remove float */
+  width: calc(77%); /* Adjusted width to fit the remaining space */
+  min-height: 100vh;
+  position: relative;
+  padding: 10px; /* Consistent padding on all sides */
+  margin-right: 3%; /* Offset by the width of the sidebar */
+
+  .content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    flex-shrink: 0; /* Ensures header does not shrink */
+
+    .tenant-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #6b7280;
+    }
+
+    .user-profile {
+      position: relative;
+
+      .user-picture {
+        width: 50px; /* Adjust size as needed */
+        height: 50px;
+        border-radius: 50%; /* Circular image */
+        cursor: pointer;
+      }
+
+      .user-details {
+        display: none;
+        position: absolute;
+        z-index: 1000; /* A high value to ensure it's on top of other elements */
+        bottom: -55px; /* Adjust as needed */
+        right: 0;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        border-radius: 4px;
+
+        .display-name {
+          white-space: nowrap; /* Prevents wrapping to a new line */
+        }
+
+        .logout-link {
+          color: #007bff; /* Bootstrap's default link color */
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      &:hover .user-details {
+        display: block;
+      }
+    }
+  }
+
+  .content-data {
+    flex-grow: 1; /* Fills up remaining space */
+    overflow-y: auto; /* Scrollable content */
+    padding-left: 10px; /* Consistent padding */
+  }
+
+  .content-footer {
+    flex-shrink: 0; /* Ensures footer does not shrink */
+    padding: 20px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      letter-spacing: 0.175em; /* Increase letter-spacing by 25% */
+      color: grey; /* Change the color to grey */
+      font-size: 75%; /* Reduce the font size by 25% */
+    }
+
+    .logo {
+      height: 0.75em; /* Adjusts the logo height to match the font size */
+      margin-left: 5px;
+    }
+  }
+}
+
+.action-icons {
+  text-align: left;
+  color: var(--primary-color);
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .pi {
+    margin: 0 10px;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(85%); // Adjust as necessary to darken
+    }
+  }
+}
+/* Custom styles for filter grid layout */
+.filter-grid {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap to the next line */
+  gap: 20px; /* Space between rows and columns */
+
+  .filter-field {
+    flex: 0 0 calc(33.333% - 20px); /* Adjust width for 3 elements in a row */
+    max-width: calc(
+      33.333% - 20px
+    ); /* Ensure the max-width aligns with flex-basis */
+    padding: 5px; /* Remove padding if not needed */
+  }
+  // IN FILTER ADDED 4 INPUT IN ONE ROW
+  .filter-field1 {
+    flex: 0 0 calc(25% - 20px); /* Adjust width for 3 elements in a row */
+    max-width: calc(
+      25% - 20px
+    ); /* Ensure the max-width aligns with flex-basis */
+    padding: 5px; /* Remove padding if not needed */
+  }
+  /* Adjust label positioning */
+  .p-float-label {
+    display: block;
+  }
+
+  /* Adjust input field width */
+  input[pInputText],
+  .p-dropdown,
+  .p-calendar {
+    width: 100%;
+  }
+}
+
+/* Additional styles if needed */
+@media screen and (max-width: 991px) {
+  .filter-grid .filter-field  {
+    flex: 0 0 calc(50% - 20px); /* Full width on smaller screens */
+    max-width: calc(50% - 20px);
+  }
+}
+
+/* Additional styles if needed */
+@media screen and (max-width: 767px) {
+  .filter-grid .filter-field  {
+    flex: 0 0 100%; /* Full width on smaller screens */
+    max-width: 100%;
+  }
+}
+
+.date-filter-container {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+  gap: 0.5rem; /* Space between calendar and icon (adjust as needed) */
+
+  .pi-refresh {
+    cursor: pointer;
+    font-size: 1rem; /* Adjust icon size as needed */
+  }
+  
+}
+// =======
+.flex-container {
+  display: flex;
+  justify-content: space-between; 
+  flex-wrap: wrap; 
+}
+
+.flex-item {
+  flex: 1 0 auto; 
+  margin-right: 10px; 
+  max-width: calc(25% - 10px); 
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.form-container {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%; 
+}
+
+.form-wrapper {
+width: 100%; 
+}
+
+.form {
+width: 100%; 
+}
+.input-row td {
+padding: 6px; 
+}
+
+.input-row input,
+.input-row p-dropdown {
+width: 100%; 
+box-sizing: border-box; 
+}
+.submit-button-container {
+text-align: center;
+margin-top: 20px; 
+}
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: rgb(20,184,166);
+  padding: 7px 14px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: rgb(20,184,166);
+}

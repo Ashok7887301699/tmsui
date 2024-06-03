@@ -1,0 +1,266 @@
+<!-- <h3>customer-detail</h3> -->
+
+<!-- Import PrimeNG Steps and Messages components in your component template -->
+<p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="false"></p-steps>
+<p-messages [(value)]="messages"></p-messages>
+
+<!-- Step 1: Tenant Form -->
+<div *ngIf="currentStep === 0">
+  <!-- Form layout using PrimeNG components -->
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+    <p-card>
+      <p-fieldset legend="Customer Details">
+        
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <!-- First row of input fields -->
+          <div class="flex-auto">
+            <label class="block  mb-2" for="sap_cust_grp_code">TMS Cust Group Code</label>
+            <input type="text" id="sap_cust_grp_code" formControlName="sap_cust_grp_code" pInputText [readonly]="true" class="cursor-no-drop" />
+          </div>
+
+      
+
+          <!-- <div class="flex-auto">
+            <label class="block  mb-2" for="PAN">PAN</label>
+            <input type="text" id="PAN" formControlName="PAN" pInputText />
+          </div> -->
+          <div class="flex-auto">
+            <label class="block mb-2" for="PAN">PAN</label>
+            <input type="text" id="PAN" formControlName="PAN" pInputText (blur)="fetchFullNameFromPAN()" [readonly]="isEditMode"
+            [class.cursor-no-drop]="isEditMode" (input)="onInput($event)"/>
+            <span *ngIf="!isEditMode" class="verification-message" [ngClass]="{ 'valid': verificationStatus === 'Verified', 'invalid': verificationStatus === 'Invalid' }">
+              {{ verificationMessage }} </span> 
+          </div>
+         
+          <div class="flex-auto" hidden >
+            <label class="block  mb-2" for="CostCenter">Cost Center</label>
+            <input type="text"   id="CostCenter" formControlName="CostCenter" pInputText />
+          </div>
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+
+          <!-- Second row of input fields -->
+          <div class="flex-auto">
+            <label class="block  mb-2" for="CustName">Cust Name</label>
+            <input type="text" id="CustName" formControlName="CustName" pInputText [readonly]="true" class="cursor-no-drop"  />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block  mb-2" for="sap_cust_code">SAP/ERP Cust Code</label>
+            <input type="text" id="sap_cust_code" formControlName="sap_cust_code" pInputText
+               [readonly]="true" class="cursor-no-drop" />
+          </div>
+          <!-- <div class="flex-auto flex-wrap gap-6 p-fluid mb-2">
+            <label class="block  mb-2">Category</label>
+            <div class="mt-4" style="margin-left: 20%;">
+              <input type="radio" id="PAID" style=" width: 20px; height: 20px;  margin-right: 10px;"
+                formControlName="Category" value="PAID" class="custom-radio">
+              <label for="PAID">PAID</label>
+              &nbsp;
+              <input type="radio" id="TO_PAY" style=" width: 20px; height: 20px;  margin-right: 10px;"
+                formControlName="Category" value="TO PAY" class="custom-radio">
+              <label for="TO_PAY">TO PAY</label>
+              &nbsp;
+              <input type="radio" id="TBB" style=" width: 20px; height: 20px;  margin-right: 10px;"
+                formControlName="Category" value="TBB" class="custom-radio">
+              <label for="TBB">TBB</label>
+            </div>
+
+          </div> -->
+          <div class="flex-auto flex-wrap gap-6 p-fluid mb-2">
+            <label class="block  mb-2">Category</label>
+            <div class="mt-4" style="margin-left: 20%;">
+              <div class="checkbox-container">
+                <div *ngFor="let option of categoryOptions" class="checkbox-item">
+                  <p-checkbox [value]="option.value" formControlName="Category" (onChange)="onCheckboxChange($event, option.value)"   [style.pointer-events]="option.value === 'TBB' ? 'none' : 'auto'"    [style.cursor]="option.value === 'TBB' ? 'no-drop' : 'auto'"
+                  class="cursor-no-drop"></p-checkbox>
+                  <label>{{ option.label }}</label>
+                </div>
+              </div>
+              <!-- <div class="checkbox-container">
+                <div *ngFor="let option of categoryOptions" class="checkbox-item">
+                  <p-checkbox [value]="option.value" formControlName="Category" (onChange)="onCheckboxChange($event)"></p-checkbox>
+                  <label>{{ option.label }}</label>
+                </div>
+                
+              </div> -->
+            </div>
+          </div>
+        
+
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <!-- Third row of input fields -->
+
+          
+          <div class="flex-auto gap-4 ">
+            <label class="block  mb-2" for="MobileNo">Mobile No</label>
+            <input type="text" id="MobileNo" formControlName="MobileNo" pInputText maxlength="10" />
+            
+          </div>
+        
+          <div class="flex-auto">
+            <label class="block  mb-2" for="GST_No">GST No</label>
+            <input type="text" id="GST_No" formControlName="GST_No" pInputText />
+          </div>
+          <div class="flex-auto">
+            <label class="block  mb-2" for="City">City</label>
+            <input type="text" id="City" formControlName="City" pInputText />
+          </div>
+
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+        <div class="flex-auto">
+          <label class="block  mb-2" for="Pincode">Pin Code</label>
+          <input type="text" id="Pincode" formControlName="Pincode" pInputText />
+        </div>
+
+        <div class="flex-auto col-2">
+          <label class="block mb-2" for="sap_ind_type">Industry type</label>
+          <p-dropdown [options]="IndTypeOptions" formControlName="sap_ind_type" optionLabel="label" optionValue="value" placeholder="Select Ind type"></p-dropdown>
+        </div>
+
+        <div class="flex-auto col-2">
+          <label class="block mb-2" for="sap_depot_name">Branch Name</label>
+          <p-dropdown [options]="deponameOptions" formControlName="sap_depot_name" optionLabel="label" optionValue="value" placeholder="Select Branch Name"></p-dropdown>
+        </div>
+        </div>
+        
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <!-- Fourth row of input fields -->
+          <div class="flex-auto">
+            <label class="block  mb-2" for="Location">Location</label>
+            <input type="text" id="Location" formControlName="Location" pInputText />
+          </div>
+          <div class="flex-auto">
+            <label class="block  mb-2" for="TelNo">Tel No</label>
+            <input type="text" id="TelNo" formControlName="TelNo" pInputText />
+          </div>
+          <div class="flex-auto">
+            <label class="block  mb-2" for="Address">Address</label>
+            <input type="text" id="Address" formControlName="Address" pInputText />
+          </div>
+
+          <!-- <div class="flex-auto">
+            <label class="block  mb-2" for="sap_ind_type">Ind_type</label>
+            <input type="text" id="sap_ind_type" formControlName="sap_ind_type" pInputText />
+          </div> -->
+        
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+
+          <div class="flex-auto">
+            <label class="block  mb-2" for="CustNameMar">Cust Name (Regional Language)</label>
+            <input type="text" id="CustNameMar" formControlName="CustNameMar" pInputText />
+          </div>
+          <div class="flex-auto">
+            <label class="block  mb-2" for="AddressMar">Address (Regional Language)</label>
+            <input type="text" id="AddressMar" formControlName="AddressMar" pInputText />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block  mb-2" for="BillAddressMar">Bill Address (Regional Language)</label>
+            <input type="text" id="BillAddressMar" formControlName="BillAddressMar" pInputText />
+          </div>
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <!-- Sixth row of input fields -->
+
+       
+
+          <div class="flex-auto">
+            <label class="block  mb-2" for="BillingMail">Billing Mail Id</label>
+            <input type="text" id="BillingMail" formControlName="BillingMail" pInputText />
+          </div>
+          <div class="flex-auto">
+            <label class="block  mb-2" for="BillingMobileNo">Billing MobileNo</label>
+            <input type="text" id="BillingMobileNo" formControlName="BillingMobileNo" pInputText />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block  mb-2" for="BiillingPerson">Biilling Person</label>
+            <input type="text" id="BiillingPerson" formControlName="BiillingPerson" pInputText />
+          </div>
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+          <!-- Seventh row of input fields -->
+
+          <!-- <div class="flex-auto col-2">
+            <label class="block  mb-2" for="sap_depot_name">Branch Name</label>
+            <input type="text" id="sap_depot_name" formControlName="sap_depot_name" pInputText />
+          </div> -->
+        
+
+          <div class="flex-auto col-2" style="display: none;">
+            <label class="block  mb-2" for="sap_create_date">SAP/ERP Create Date</label>
+            <p-calendar id="sap_create_date" formControlName="sap_create_date" [showIcon]="true"></p-calendar>
+          </div>
+
+
+          <div class="flex-auto col-2" style="display: none;">
+            <label class="block  mb-2" for="Status">Status</label>
+            <p-dropdown id="Status" [options]="statusOptions" formControlName="Status" placeholder="Select Status"
+              optionLabel="label" optionValue="value" [showClear]="true"></p-dropdown>
+          </div>
+
+        </div>
+
+        <div class="card flex flex-wrap gap-4 p-fluid mb-2">
+
+          <div class="flex-auto">
+            <label class="block  mb-2" for="CreatedBy">Created By</label>
+            <input type="text" id="CreatedBy" formControlName="CreatedBy"  pInputText />
+          </div>
+
+          <div class="flex-auto">
+            <label class="block  mb-2" for="SalesReference">Sales Reference Name</label>
+            <input type="text" id="SalesReference" formControlName="SalesReference" pInputText />
+          </div>
+
+          </div>        
+
+        <!-- <form [formGroup]="uploadcustomerForm">
+          <div class="form-group">
+              <input type="file" pInputText (change)="Upload($event)" accept=".xlsx, .xls, .CSV" />
+          </div>
+      </form> -->
+
+      <form [formGroup]="uploadcustomerForm">
+        <div class="form-group">
+            <input type="file" pInputText accept=".xlsx, .xls, .CSV" #fileInput />
+            <button type="button" pButton label="Upload Excel" (click)="uploadFile(fileInput)"></button>
+        </div>
+    </form>
+
+
+
+
+      </p-fieldset>
+
+      <p-footer>
+        <button type="button" pButton label="Cancel" (click)="cancel()" class="p-button-secondary mx-1"></button>
+        <button type="submit" pButton [label]="isEditMode ? 'Update' : 'Save'"
+          [disabled]="!customerForm.valid"></button>
+          <button pButton type="button" label="Download Excel Format" (click)="downloadExcelFormat()" class="p-button-secondary mx-1"></button>
+      </p-footer>
+    </p-card>
+  </form>
+</div>
+
+<!-- Step 2: Display Tenant Details or Error Message -->
+<div *ngIf="currentStep === 1">
+  <div *ngIf="operationSuccessful">
+    <app-customer-detail [customer]="createdOrEditedcustomer"></app-customer-detail>
+    <button type="button" pButton label="OK" (click)="resetFormAndNavigateBack()"></button>
+  </div>
+  <div *ngIf="!operationSuccessful">
+    <p-messages [value]="messages"></p-messages>
+    <button type="button" pButton label="OK" (click)="currentStep = 0"></button>
+  </div>
+</div>

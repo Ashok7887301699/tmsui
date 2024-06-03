@@ -1,0 +1,196 @@
+<p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+<div class="tenant-list-container">
+  <p-toast></p-toast>
+  <p-confirmDialog
+    header="Confirmation"
+    icon="pi pi-exclamation-triangle"
+  ></p-confirmDialog>
+  <!-- Filter Panel -->
+  <p-accordion>
+    <p-accordionTab header="Filters">
+      <div class="p-fluid filter-grid">
+        <!-- Name Filter -->
+        <div class="filter-field">
+          <span class="p-float-label">
+            <input
+              type="text"
+              pInputText
+              id="contract_id"
+              [(ngModel)]="filters.contract_id"
+              (input)="applyFilters()"
+            />
+            <label for="contract_id">Contract Id</label>
+          </span>
+        </div>
+
+        <!-- Short Name Filter -->
+        <div class="filter-field">
+          <span class="p-float-label">
+            <input
+              type="text"
+              pInputText
+              id="CustName"
+              [(ngModel)]="filters.CustName"
+              (input)="applyFilters()"
+            />
+            <label for="CustName">Customer Name</label>
+          </span>
+        </div>
+
+        <!-- Status Filter -->
+        <div class="filter-field">
+          <p-dropdown
+            [options]="statusOptions"
+            [(ngModel)]="filters.status"
+            (onChange)="applyFilters()"
+            placeholder="Select a Status"
+            optionLabel="label"
+            optionValue="value"
+          ></p-dropdown>
+        </div>
+
+        <!-- Created From Date Filter -->
+<div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar id="createdFrom" [(ngModel)]="filters.created_from" (onSelect)="applyFilters()"
+                [showIcon]="true" [showClear]="true" (onClear)="resetOneByOneFilters()">
+              </p-calendar>
+              <label for="createdFrom">Created From</label>
+            </span>
+          </div>
+        </div>
+
+        <!-- Created To Date Filter -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar id="createdTo" [(ngModel)]="filters.created_to" (onSelect)="applyFilters()" [showIcon]="true"
+                [showClear]="true" (onClear)="resetOneByOneFilters()">
+              </p-calendar>
+              <label for="Status">Created To</label>
+            </span>
+          </div>
+        </div>
+
+        <!-- Updated From Date Filter -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar id="updatedFrom" [(ngModel)]="filters.updated_from" (onSelect)="applyFilters()"
+                [showIcon]="true" placeholder="Updated From" [showClear]="true"
+                (onClear)="resetOneByOneFilters()"></p-calendar>
+              <label for="Status">Updated From</label>
+            </span>
+          </div>
+        </div>
+
+        <!-- Updated From Date Filter -->
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <span class="p-float-label">
+              <p-calendar id="updatedTo" [(ngModel)]="filters.updated_to" (onSelect)="applyFilters()" [showIcon]="true"
+                placeholder="Updated To" [showClear]="true" (onClear)="resetOneByOneFilters()"></p-calendar>
+              <label for="Status">Updated To</label>
+            </span>
+          </div>
+        </div>
+        <!-- Sort By Filter -->
+        <div class="filter-field1">
+          <p-dropdown
+            [options]="sortByOptions"
+            [(ngModel)]="filters.sort_by"
+            (onChange)="applyFilters()"
+            (onClear)="resetOneByOneFilters()"
+            placeholder="Sort By"
+            optionLabel="label"
+            optionValue="value"
+          ></p-dropdown>
+        </div>
+
+        <!-- Sort Order Filter -->
+        <div class="filter-field1">
+          <p-dropdown
+            [options]="sortOrderOptions"
+            [(ngModel)]="filters.sort_order"
+            (onChange)="applyFilters()"
+            (onClear)="resetOneByOneFilters()"
+            placeholder="Sort Order"
+            optionLabel="label"
+            optionValue="value"
+          ></p-dropdown>
+        </div>
+        <div class="filter-field1">
+          <div class="date-filter-container">
+            <button type="button" pButton label="Reset All Filters" (click)="resetAllFilters()"
+              icon="pi pi-refresh"></button>
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+
+  <!-- Action icons for CRUD operations -->
+  <div class="action-icons">
+    <i class="pi pi-plus" (click)="createNewRecord()"></i>
+    <i class="pi pi-eye" (click)="viewRecord()"></i>
+    <i class="pi pi-pencil" (click)="editRecord()"></i>
+    <i class="pi pi-ban" (click)="deactivateRecord()"></i>
+    <i class="pi pi-trash" (click)="deleteRecord()"></i>
+  </div>
+
+  <!-- Search and Sort Filters -->
+  <div class="filters">
+    <!-- Add your search and sort filter inputs here -->
+    <!-- Example: <input type="text" pInputText placeholder="Search by name" (input)="applyFilters({name: $event.target.value})"> -->
+  </div>
+
+  <!-- Tenant Table -->
+  <p-table
+  [value]="contracts"
+  [paginator]="true"
+  [rows]="10"
+  [totalRecords]="totalRecords"
+  [scrollable]="true"
+  scrollHeight="500px"
+  scrollWidth="100%"
+  [rowsPerPageOptions]="rowsPerPageOptions"
+  styleClass="p-datatable-gridlines"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="{first} to {last} of {totalRecords} records"
+  [lazy]="true"
+  [loading]="loading"
+  (onLazyLoad)="loadContracts($event)"
+  selectionMode="single"
+  [(selection)]="selectedContractId"
+  (onRowSelect)="onRowSelect($event)"
+>
+  <!-- Table columns omitted for brevity -->
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Contract Id</th>
+      <th>Customer Id</th>
+      <th>Customer Name</th>
+      <th>Category</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Status</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-contract>
+    <tr [pSelectableRow]="contract">
+      <td>{{ contract.contract_id }}</td>
+      <td>{{ contract.sap_cust_code }}</td>
+      <td>{{ contract.CustName}}</td>
+      <td>{{ contract.Category}}</td>
+      <td>{{ contract.start_date }}</td>
+      <td>{{ contract.end_date }}</td>
+      <td>{{ contract.status }}</td>
+      <td>{{ contract.created_at | date : "medium" }}</td>
+      <td>{{ contract.updated_at | date : "medium" }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
